@@ -1,0 +1,92 @@
+---
+// BaseLayout.astro — HTML-Grundgerüst für alle Seiten.
+// Nimmt Titel + Meta-Description als Props entgegen und rendert den
+// Seiteninhalt über <slot />. Bindet die Design-Tokens (global.css) ein.
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+
+// TEMP: Platzhalter-Navigation über ALLE Seiten (zum Durchklicken beim Testen).
+// Wird später durch das finale Header-/Footer-Design ersetzt.
+const navLinks = [
+  { href: '/', label: 'Startseite' },
+  { href: '/kurs', label: 'Kurs & Termine' },
+  { href: '/gutscheine', label: 'Gutscheine' },
+  { href: '/kaesekessi', label: 'Mobiler Käsekessi' },
+  { href: '/ueber-uns', label: 'Über uns' },
+  { href: '/kontakt', label: 'Kontakt' },
+  { href: '/impressum', label: 'Impressum' },
+  { href: '/datenschutz', label: 'Datenschutz' },
+  { href: '/agb', label: 'AGB' },
+  { href: '/widerruf', label: 'Widerruf' },
+];
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/cropped-logo_3D_m.png" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    <!-- Google Fonts: Roboto Slab (Headlines) + Roboto (Fließtext) — aus Design-Brief -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;700&family=Roboto:wght@400;600&display=swap"
+    />
+  </head>
+  <body>
+    <!-- ===== TEMP-NAVIGATION (Platzhalter) =====
+         Nur zum Testen/Durchklicken. Wird später durch Header + Footer ersetzt. -->
+    <nav class="temp-nav" aria-label="Platzhalter-Navigation (temporär)">
+      <ul>
+        {navLinks.map((link) => (
+          <li><a href={link.href}>{link.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <!-- ===== /TEMP-NAVIGATION ===== -->
+
+    <main>
+      <slot />
+    </main>
+  </body>
+</html>
+
+<!-- Minimale, klar temporäre Styles nur für die Platzhalter-Navigation. -->
+<style>
+  .temp-nav {
+    border-bottom: var(--hairline);
+    padding: 0.75rem 1rem;
+  }
+  .temp-nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    font-size: var(--fs-small);
+  }
+  .temp-nav a {
+    color: var(--color-accent);
+    text-decoration: none;
+  }
+  .temp-nav a:hover {
+    text-decoration: underline;
+  }
+  main {
+    max-width: var(--container-max);
+    margin: 0 auto;
+    padding: 2rem 1rem;
+  }
+</style>

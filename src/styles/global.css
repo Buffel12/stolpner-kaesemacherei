@@ -1,0 +1,70 @@
+/* =========================================================================
+   global.css — Design-Tokens der Stolpner Käsemacherei
+   Quelle: Marken Materialien/Website-Design-Brief.md (Abschnitte 2 & 3)
+   Hinweis: Hier stehen nur die Tokens + minimale Basis-Styles.
+   Die eigentliche Design-Ausgestaltung folgt in einem späteren Schritt.
+   ========================================================================= */
+
+:root {
+  /* --- Farben (Design-Brief Abschnitt 2, 60-30-10) --- */
+  --color-bg: #241c12;       /* Hintergrund (~60 %) */
+  --color-surface: #3a2e1e;  /* Sekundär: Flächen/Karten, dunkles Braun */
+  --color-primary: #c89a3c;  /* Primär: Marke/Sektionen, Gold (~30 %) */
+  --color-accent: #e8b24a;   /* Akzent / CTA: helles Gold (~10 %) */
+  --color-text: #f1e7d4;     /* Text (leicht gedämpft, nicht reinweiß) */
+
+  /* --- Schriften (Roboto Slab + Roboto, via Google Fonts im BaseLayout) --- */
+  --font-headline: 'Roboto Slab', Georgia, 'Times New Roman', serif;
+  --font-body: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* --- Schriftgewichte --- */
+  --fw-regular: 400;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* --- Schriftgrößen: fluid via clamp (Bereich 390–1280 px) --- */
+  --fs-h1: clamp(2.5rem, 2.25rem + 1.01vw, 3.0625rem);      /* 40 → 49 px */
+  --fs-h2: clamp(2.0625rem, 1.9rem + 0.67vw, 2.4375rem);    /* 33 → 39 px */
+  --fs-h3: clamp(1.75rem, 1.67rem + 0.34vw, 1.9375rem);     /* 28 → 31 px */
+  --fs-h4: clamp(1.4375rem, 1.38rem + 0.22vw, 1.5625rem);   /* 23 → 25 px */
+  --fs-h5: clamp(1.1875rem, 1.16rem + 0.11vw, 1.25rem);     /* 19 → 20 px */
+  --fs-lead: clamp(1.1875rem, 1.16rem + 0.11vw, 1.25rem);   /* 19 → 20 px */
+  --fs-body: 1rem;          /* 16 px / Zeilenhöhe 1.6 */
+  --fs-small: 0.875rem;     /* 14 px */
+  --fs-button: 1rem;        /* 16 px */
+  --fs-eyebrow: 0.8125rem;  /* 13 px */
+
+  /* --- Form & Tiefe (Design-Brief Abschnitt 3) --- */
+  --radius: 8px;                                   /* Buttons & Karten leicht gerundet */
+  --hairline: 1px solid rgba(241, 231, 212, 0.12); /* feine Haarlinie, dezent */
+  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+
+  /* --- Layout (Design-Brief Abschnitt 3, „Inhaltsbreite") --- */
+  --container-max: 1280px;  /* Container */
+  --measure: 680px;         /* Lesebreite Fließtext */
+  --form-max: 480px;        /* Formularbreite */
+}
+
+/* --- Minimale Basis-Styles, damit die Platzhalter-Seiten testbar sind --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: 1.6;
+}
+
+h1 {
+  font-family: var(--font-headline);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  line-height: 1.1;
+}
