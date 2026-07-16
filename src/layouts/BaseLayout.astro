@@ -1,30 +1,21 @@
 ---
 // BaseLayout.astro — HTML-Grundgerüst für alle Seiten.
 // Nimmt Titel + Meta-Description als Props entgegen und rendert den
-// Seiteninhalt über <slot />. Bindet die Design-Tokens (global.css) ein.
+// Seiteninhalt über <slot />. Bindet Design-Tokens (global.css),
+// Header und Footer für alle Seiten ein.
 import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
   description: string;
+  /** true = Seite bringt eigene Full-Bleed-Sektionen mit (z. B. Startseite);
+   *  false = Standard-Container mit Innenabstand (z. B. Rechtstexte). */
+  fullBleed?: boolean;
 }
 
-const { title, description } = Astro.props;
-
-// TEMP: Platzhalter-Navigation über ALLE Seiten (zum Durchklicken beim Testen).
-// Wird später durch das finale Header-/Footer-Design ersetzt.
-const navLinks = [
-  { href: '/', label: 'Startseite' },
-  { href: '/kurs', label: 'Kurs & Termine' },
-  { href: '/gutscheine', label: 'Gutscheine' },
-  { href: '/kaesekessi', label: 'Mobiler Käsekessi' },
-  { href: '/ueber-uns', label: 'Über uns' },
-  { href: '/kontakt', label: 'Kontakt' },
-  { href: '/impressum', label: 'Impressum' },
-  { href: '/datenschutz', label: 'Datenschutz' },
-  { href: '/agb', label: 'AGB' },
-  { href: '/widerruf', label: 'Widerruf' },
-];
+const { title, description, fullBleed = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -36,7 +27,7 @@ const navLinks = [
     <title>{title}</title>
     <meta name="description" content={description} />
 
-    <!-- Google Fonts: Roboto Slab (Headlines) + Roboto (Fließtext) — aus Design-Brief -->
+    <!-- Google Fonts: Roboto Slab (Headlines) + Roboto (Fließtext) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -45,48 +36,25 @@ const navLinks = [
     />
   </head>
   <body>
-    <!-- ===== TEMP-NAVIGATION (Platzhalter) =====
-         Nur zum Testen/Durchklicken. Wird später durch Header + Footer ersetzt. -->
-    <nav class="temp-nav" aria-label="Platzhalter-Navigation (temporär)">
-      <ul>
-        {navLinks.map((link) => (
-          <li><a href={link.href}>{link.label}</a></li>
-        ))}
-      </ul>
-    </nav>
-    <!-- ===== /TEMP-NAVIGATION ===== -->
+    <Header />
 
-    <main>
+    <main class={fullBleed ? 'page-full' : 'page'}>
       <slot />
     </main>
+
+    <Footer />
   </body>
 </html>
 
-<!-- Minimale, klar temporäre Styles nur für die Platzhalter-Navigation. -->
 <style>
-  .temp-nav {
-    border-bottom: var(--hairline);
-    padding: 0.75rem 1rem;
-  }
-  .temp-nav ul {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem 1rem;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    font-size: var(--fs-small);
-  }
-  .temp-nav a {
-    color: var(--color-accent);
-    text-decoration: none;
-  }
-  .temp-nav a:hover {
-    text-decoration: underline;
-  }
-  main {
+  /* Standard-Seiten: zentrierter Container mit Innenabstand. */
+  .page {
     max-width: var(--container-max);
     margin: 0 auto;
     padding: 2rem 1rem;
+  }
+  /* Full-Bleed-Seiten bringen ihre eigenen Sektionen/Breiten mit. */
+  .page-full {
+    display: block;
   }
 </style>

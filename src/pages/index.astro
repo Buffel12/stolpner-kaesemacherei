@@ -1,10 +1,568 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 ---
 <BaseLayout
   title="Stolpner Käsemacherei — Käsekurse zum Selbermachen in Stolpen"
   description="Handwerkliche Käsekurse als Erlebnis-Workshop in Stolpen/Sachsen: Stelle deinen eigenen Käse her und nimm ihn mit nach Hause."
+  fullBleed
 >
-  <h1>Startseite</h1>
-  <!-- Inhalt folgt aus Claude Design -->
+  <!-- ===================== 1 · HERO ===================== -->
+  <section class="hero">
+    <img
+      class="hero__bg"
+      src="/images/header-hintergrund.jpg"
+      alt="Handwerkszeug und Kupferkessel der Stolpner Käsemacherei"
+    />
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__content">
+      <span class="eyebrow eyebrow--accent">Über 1.000 Teilnehmer · seit 2014</span>
+      <h1 class="hero__title">Schon ein Käse-Set gekauft, das nie funktioniert hat? Bei Petra gelingt Dir Dein erster Laib garantiert</h1>
+      <span class="rule"></span>
+      <p class="hero__lead">In vier Stunden am echten Kessel machst Du Deinen eigenen Käse und pflegst ihn zu Hause noch rund drei Wochen bis zur vollen Reife.</p>
+      <div class="btn-row">
+        <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+        <a href="/gutscheine" class="btn btn--secondary btn--lg">Gutschein verschenken</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 2 · TRUST BAR ===================== -->
+  <section class="trust">
+    <div class="trust__inner">
+      <span class="trust__item"><Icon name="mountain-snow" class="ic-accent" /> Traditionelles Handwerk von der Schweizer Alp</span>
+      <span class="trust__sep" aria-hidden="true"></span>
+      <span class="trust__item"><Icon name="users" class="ic-accent" /> Über 1.000 Teilnehmer</span>
+      <span class="trust__sep" aria-hidden="true"></span>
+      <span class="trust__item"><Icon name="package" class="ic-accent" /> Eigener Käse zum Mitnehmen</span>
+    </div>
+  </section>
+
+  <!-- ===================== 3 · KENNST DU DAS? ===================== -->
+  <section class="section">
+    <div class="section__head">
+      <span class="eyebrow">Kennst Du das?</span>
+      <h2 class="section__title">Käse-Set gekauft, genau nach Anleitung — und am Ende nur graue Flocken im Topf</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="prose">
+      <p>Du stehst vor der Käsetheke, liest die Zutatenliste und weißt genau: das willst Du eigentlich nicht essen. Aber wie man es selbst besser macht, hat Dir nie jemand gezeigt.</p>
+      <p>Du hast das Käse-Set aus dem Netz auf den Küchentisch gestellt, Thermometer rein, genau nach Anleitung. Am Ende schwimmt in Deinem Topf eine graue, flockige Masse, die nach nichts schmeckt. Die Milch war teuer, der Abend ist hin — und Du kippst wortlos alles in die Spüle.</p>
+      <p class="prose__punch">Du denkst, Dir fehlt das richtige Equipment. In Wahrheit fehlt Dir jemand, der neben Dir steht und im entscheidenden Moment sagt: jetzt.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 4 · SO LÄUFT DEIN KÄSEKURS AB ===================== -->
+  <section class="section section--deep">
+    <div class="section__head section__head--wide">
+      <span class="eyebrow">So läuft's ab</span>
+      <h2 class="section__title">In 3 Schritten zu Deinem eigenen Käse</h2>
+      <span class="rule"></span>
+      <p class="section__intro">Du brauchst keine Vorkenntnisse und kein eigenes Equipment — alles steht bereit. In drei Schritten wird aus roher Milch Dein eigener Käse.</p>
+    </div>
+    <div class="steps">
+      <div class="step">
+        <span class="step__num">1</span>
+        <h3 class="step__title">Termin buchen &amp; ankommen</h3>
+        <p class="step__text">Such Dir einen der wenigen Jahrestermine und komm nach Stolpen. Petra begrüßt Dich und zeigt Dir die Grundlagen.</p>
+      </div>
+      <div class="step">
+        <span class="step__num">2</span>
+        <h3 class="step__title">Am Kessel Deinen Käse machen</h3>
+        <p class="step__text">Unter Anleitung stellst Du Deinen Rohling her. Während der Käse arbeitet, verkostest Du Sorten — dazu Brot und Wein.</p>
+      </div>
+      <div class="step">
+        <span class="step__num">3</span>
+        <h3 class="step__title">Mitnehmen &amp; reifen lassen</h3>
+        <p class="step__text">Deinen Laib nimmst Du mit nach Hause und pflegst ihn rund drei Wochen bis zur Reife. Die Anleitung bekommst Du mit.</p>
+      </div>
+    </div>
+    <div class="section__cta">
+      <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+    </div>
+  </section>
+
+  <!-- ===================== 5 · DAS NIMMST DU MIT ===================== -->
+  <section class="section">
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature__media feature__media--placeholder">
+          <span class="feature__caption"><Icon name="camera" size={14} /> Foto: Teilnehmer:in hält den eigenen Laib</span>
+        </div>
+        <h3 class="feature__title">Du musst nichts können — außer Lust auf echten Käse</h3>
+        <p class="feature__text">Viele stehen anfangs etwas unsicher am Kessel. Petra bleibt an Deiner Seite und sagt Dir bei jedem Schritt genau, was zu tun ist — ganz gleich, wie oft es zu Hause schon schiefging. Am Ende hältst Du Deinen eigenen Laib in der Hand und denkst: das habe ich wirklich selbst gemacht.</p>
+      </div>
+      <div class="feature">
+        <div class="feature__media">
+          <img src="/images/petra-am-kupferkessel.jpg" alt="Petra zeigt am Kupferkessel, wie Käse entsteht" />
+        </div>
+        <h3 class="feature__title">Eine echte Käsemacherin mit Alp-Erfahrung an Deiner Seite</h3>
+        <p class="feature__text">Petra Gräfe stellt seit über zehn Jahren selbst Käse her und hat ihr Handwerk über mehrere Sommer auf einer Schweizer Alp gelernt. Du lernst die Methode einer Frau, die das Käsen immer aufs Neue in der Praxis anwendet — das siehst und schmeckst Du an Deinem eigenen Laib.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 6 · DEINE KÄSEMACHERIN PETRA ===================== -->
+  <section class="section section--deep petra">
+    <div class="petra__grid">
+      <div class="petra__figure">
+        <div class="petra__glow" aria-hidden="true"></div>
+        <img src="/images/stolpner_kaesemacherei_transp_1330x1132.png" alt="Petra Gräfe, Käsemacherin in Stolpen" />
+      </div>
+      <div class="petra__body">
+        <span class="eyebrow">Deine Käsemacherin Petra · Wie alles begann</span>
+        <h2 class="petra__title">Es begann mit einem einfachen Wunsch: mal wieder Kühe melken</h2>
+        <span class="rule rule--left"></span>
+        <p>Auf der Alm verarbeitete der Bauer seine Milch ganz traditionell im großen Kupferkessel — dieses Handwerk hat mich sofort angesteckt. Da war die Idee geboren.</p>
+        <p>Erst wer selbst erlebt, wie viel Milch und wie viel gefühlvolle Arbeit in einem einzigen Laib stecken, bekommt ein echtes Gespür für Qualität. Diesen Moment gebe ich weiter. Heute, über zehn Jahre und mehr als 1.000 Teilnehmer später, stehe ich in Stolpen mit Menschen wie Dir am Kessel und zeige jeden Handgriff.</p>
+        <div class="petra__cta">
+          <a href="/ueber-uns" class="btn btn--secondary btn--md">Mehr über Petra</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 7 · VERTRAUEN ===================== -->
+  <section class="section">
+    <div class="section__head">
+      <span class="eyebrow">Vertrauen</span>
+      <h2 class="section__title">Das sagen Teilnehmer nach ihrem Käse-Abend</h2>
+      <span class="rule"></span>
+      <p class="section__intro">Am besten erzählen Dir andere, wie so ein Abend in Stolpen wirklich ist.</p>
+    </div>
+
+    <div class="reviews">
+      <div class="card review">
+        <div class="review__stars" aria-label="5 von 5 Sternen">
+          <Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} />
+        </div>
+        <p class="review__quote">„Käse selber machen war einfach toll, danke nochmal an Petra und Lutz."</p>
+        <span class="review__author">— Ralf</span>
+      </div>
+      <div class="card review">
+        <div class="review__stars" aria-label="5 von 5 Sternen">
+          <Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} />
+        </div>
+        <p class="review__quote">„Die Rezepte sind einfach, auch für Nicht-Profis in der Küche gut umsetzbar. Rundherum ein richtig schöner Abend!"</p>
+        <span class="review__author">— Ines</span>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <div class="gallery__cell"><img src="/images/fertige-laibe-der-teilnehmer.jpeg" alt="Fertige Käselaibe der Teilnehmer mit Wein und Blick auf Stolpen" /></div>
+      <div class="gallery__cell"><img src="/images/teilnehmer-am-kessel.jpg" alt="Teilnehmer am Kessel in der Stolpner Käsemacherei" /></div>
+      <div class="gallery__cell"><img src="/images/angeschnittener-gereifter-kaese.jpg" alt="Angeschnittener, gereifter Käse auf der Etagere" /></div>
+    </div>
+    <p class="gallery__caption">Echte Laibe von echten Teilnehmern — jeder davon zu Hause fertig gereift.</p>
+
+    <p class="closing-line">Der nächste selbst gemachte Käse könnte Deiner sein.</p>
+  </section>
+
+  <!-- ===================== 8 · ABSCHLUSS-CTA ===================== -->
+  <section class="final-cta">
+    <div class="final-cta__inner">
+      <h2 class="final-cta__title">Bereit, Deinen eigenen Käse zu machen?</h2>
+      <span class="rule"></span>
+      <p class="final-cta__text">Es gibt nur wenige Termine im Jahr, jede Runde ist auf 14 Plätze begrenzt. Wenn Du in ein paar Wochen Deinen eigenen, selbst gereiften Laib anschneiden willst, sicher Dir jetzt Deinen Platz.</p>
+      <div class="btn-row">
+        <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+        <a href="/gutscheine" class="btn btn--secondary btn--lg">Gutschein verschenken</a>
+      </div>
+      <p class="final-cta__note">Kein passender Termin dabei? Neue Termine folgen — schau bald wieder vorbei oder <a href="/kontakt">schreib uns kurz</a>.</p>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* ---- Gemeinsame Bausteine ---- */
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .eyebrow--accent { color: var(--color-accent); }
+
+  .rule {
+    display: block;
+    width: 48px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    margin: 22px auto;
+  }
+  .rule--left { margin-left: 0; margin-right: 0; }
+
+  .btn-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .section {
+    padding: clamp(56px, 8vw, 96px) clamp(18px, 4vw, 40px);
+  }
+  .section--deep {
+    background: var(--color-bg-deep);
+    border-top: 1px solid var(--color-hairline);
+  }
+  .section__head {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .section__head--wide { max-width: 900px; }
+  .section__title {
+    font-size: clamp(26px, 3.6vw, 36px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .section__intro {
+    margin: 24px 0 0;
+    max-width: 680px;
+    font-size: clamp(16px, 1.9vw, 18px);
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .section__cta {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(32px, 5vw, 44px);
+  }
+
+  /* ---- 1 · Hero ---- */
+  .hero {
+    position: relative;
+    padding: clamp(48px, 8vw, 88px) clamp(18px, 4vw, 40px) clamp(40px, 6vw, 64px);
+    text-align: center;
+    background: #1b140c;
+    overflow: hidden;
+  }
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    z-index: 0;
+  }
+  .hero__overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: radial-gradient(120% 130% at 50% 0%, rgba(27, 20, 12, 0.55) 0%, rgba(27, 20, 12, 0.72) 45%, rgba(27, 20, 12, 0.92) 100%);
+  }
+  .hero__content {
+    position: relative;
+    z-index: 2;
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .hero__title {
+    font-weight: 700;
+    font-size: clamp(30px, 5.4vw, 50px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 18px 0 0;
+    color: var(--color-text);
+  }
+  .hero__lead {
+    margin: 0;
+    max-width: 620px;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+
+  /* ---- 2 · Trust bar ---- */
+  .trust {
+    background: var(--color-bg-deep);
+    border-top: 1px solid var(--color-hairline);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .trust__inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: clamp(20px, 3vw, 28px) clamp(18px, 4vw, 40px);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(14px, 3vw, 40px);
+    text-align: center;
+  }
+  .trust__item {
+    display: inline-flex;
+    gap: 10px;
+    align-items: center;
+    font-size: clamp(14px, 1.6vw, 16px);
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .trust__sep {
+    width: 1px;
+    height: 22px;
+    background: var(--color-hairline-strong);
+  }
+
+  /* ---- 3 · Kennst Du das? ---- */
+  .prose {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    font-size: clamp(16px, 1.9vw, 18px);
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+  .prose p { margin: 0; max-width: none; }
+  .prose__punch {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(19px, 2.4vw, 24px);
+    line-height: 1.35;
+    color: var(--color-text);
+    text-align: center;
+    padding-top: 8px;
+  }
+
+  /* ---- 4 · Steps ---- */
+  .steps {
+    max-width: 1080px;
+    margin: clamp(36px, 5vw, 52px) auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: clamp(20px, 3vw, 32px);
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 14px;
+  }
+  .step__num {
+    display: inline-flex;
+    width: 60px;
+    height: 60px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    color: var(--color-accent);
+    border: 1px solid var(--color-hairline-strong);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 24px;
+  }
+  .step__title {
+    font-weight: 600;
+    font-size: clamp(19px, 2.2vw, 22px);
+    margin: 0;
+    color: var(--color-text);
+  }
+  .step__text {
+    margin: 0;
+    max-width: 300px;
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  /* ---- 5 · Feature grid ---- */
+  .feature-grid {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(28px, 4vw, 48px);
+  }
+  .feature { display: flex; flex-direction: column; gap: 16px; }
+  .feature__media {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border-radius: 12px;
+    border: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .feature__media img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
+  .feature__media--placeholder {
+    background: radial-gradient(120% 120% at 30% 15%, #5a4326 0%, #3a2c18 45%, #211710 100%);
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+  .feature__caption {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    margin: 14px;
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(241, 231, 212, 0.72);
+  }
+  .feature__title {
+    font-weight: 700;
+    font-size: clamp(21px, 2.6vw, 26px);
+    line-height: 1.2;
+    margin: 4px 0 0;
+    color: var(--color-text);
+  }
+  .feature__text {
+    margin: 0;
+    max-width: none;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  /* ---- 6 · Petra ---- */
+  .petra__grid {
+    max-width: 1040px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+    align-items: center;
+  }
+  .petra { border-bottom: 1px solid var(--color-hairline); }
+  .petra__figure {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+  .petra__glow {
+    position: absolute;
+    width: min(80%, 360px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 154, 60, 0.24), rgba(200, 154, 60, 0) 70%);
+  }
+  .petra__figure img { position: relative; width: min(92%, 400px); height: auto; display: block; }
+  .petra__title {
+    font-weight: 700;
+    font-size: clamp(24px, 3.2vw, 34px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .petra__body p {
+    margin: 0 0 14px;
+    max-width: none;
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .petra__body p:last-of-type { margin-bottom: 0; }
+  .petra__cta { margin-top: 26px; }
+
+  /* ---- 7 · Reviews & gallery ---- */
+  .reviews {
+    max-width: 960px;
+    margin: clamp(32px, 5vw, 44px) auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(20px, 3vw, 28px);
+  }
+  .review__stars { display: flex; gap: 3px; margin-bottom: 14px; color: var(--color-accent); }
+  .review__quote { margin: 0 0 16px; max-width: none; font-size: 17px; line-height: 1.6; color: var(--color-text); }
+  .review__author { font-weight: 600; color: var(--text-secondary); }
+
+  .gallery {
+    max-width: 1080px;
+    margin: clamp(28px, 4vw, 40px) auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+  }
+  .gallery__cell {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    border: 1px solid var(--color-hairline);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .gallery__cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery__caption {
+    max-width: 1080px;
+    margin: 16px auto 0;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-caption);
+    font-style: italic;
+  }
+  .closing-line {
+    margin: clamp(28px, 4vw, 40px) auto 0;
+    max-width: 600px;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+
+  /* ---- 8 · Abschluss-CTA ---- */
+  .final-cta {
+    position: relative;
+    padding: clamp(56px, 8vw, 100px) clamp(18px, 4vw, 40px);
+    text-align: center;
+    background:
+      radial-gradient(120% 130% at 50% 100%, #5a4326 0%, rgba(58, 44, 24, 0.4) 42%, rgba(33, 23, 16, 0) 72%),
+      linear-gradient(#231a10, #1b140c);
+    border-top: 1px solid var(--color-hairline);
+  }
+  .final-cta__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .final-cta__title {
+    font-weight: 700;
+    font-size: clamp(28px, 4.2vw, 42px);
+    line-height: 1.1;
+    margin: 0;
+    color: var(--color-text);
+  }
+  .final-cta__text {
+    margin: 0;
+    max-width: 600px;
+    font-size: clamp(16px, 2vw, 19px);
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  .final-cta__note {
+    margin: 22px 0 0;
+    font-size: 14px;
+    color: var(--text-caption);
+  }
+
+  /* --- Mobil: gestapelte Bild-/Text-Blöcke → Bild UNTER den Text.
+     Nur im Einspalten-Zustand; Desktop (2 Spalten, Bild oben) bleibt
+     unverändert, da die Regeln erst unterhalb der Umbruchbreite greifen. --- */
+  @media (max-width: 700px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .feature__media { order: 1; }
+
+    .petra__grid { grid-template-columns: 1fr; }
+    .petra__figure { order: 1; }
+  }
+</style>

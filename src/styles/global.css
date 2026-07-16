@@ -1,26 +1,55 @@
 /* =========================================================================
-   global.css — Design-Tokens der Stolpner Käsemacherei
-   Quelle: Marken Materialien/Website-Design-Brief.md (Abschnitte 2 & 3)
-   Hinweis: Hier stehen nur die Tokens + minimale Basis-Styles.
-   Die eigentliche Design-Ausgestaltung folgt in einem späteren Schritt.
+   global.css — Design-System der Stolpner Käsemacherei (einzige Quelle)
+   Zusammengeführt aus dem Marken-/Design-Brief und dem gelieferten
+   Design-System (Claude Design). Enthält: Farb-, Typo-, Spacing-Tokens,
+   Basis-Element-Styles + wiederverwendbare Komponenten (Button, Card).
    ========================================================================= */
 
 :root {
-  /* --- Farben (Design-Brief Abschnitt 2, 60-30-10) --- */
+  color-scheme: dark;
+
+  /* --- Farben (60-30-10, warmes „Käsekeller/Kaminlicht") --------------- */
   --color-bg: #241c12;       /* Hintergrund (~60 %) */
   --color-surface: #3a2e1e;  /* Sekundär: Flächen/Karten, dunkles Braun */
   --color-primary: #c89a3c;  /* Primär: Marke/Sektionen, Gold (~30 %) */
   --color-accent: #e8b24a;   /* Akzent / CTA: helles Gold (~10 %) */
   --color-text: #f1e7d4;     /* Text (leicht gedämpft, nicht reinweiß) */
 
-  /* --- Schriften (Roboto Slab + Roboto, via Google Fonts im BaseLayout) --- */
-  --font-headline: 'Roboto Slab', Georgia, 'Times New Roman', serif;
+  /* Abgeleitete Töne (aus der Basispalette harmonisiert) */
+  --color-bg-deep: #1b140c;         /* dunkler als bg für Vollbild-Tiefe */
+  --color-surface-2: #473829;       /* angehobene Fläche / Hover */
+  --color-hairline: #4a3b28;        /* feine 1px-Haarlinie */
+  --color-hairline-strong: #5c4931; /* etwas hellere Haarlinie */
+  --color-text-muted: #c9bba1;      /* Sekundärtext, ~70 % */
+  --color-text-dim: #9a8b71;        /* Tertiär / Captions */
+  --color-primary-soft: rgba(200, 154, 60, 0.16); /* Primär-Tönung */
+  --color-accent-soft: rgba(232, 178, 74, 0.16);  /* Akzent-Tönung */
+  --color-on-accent: #241c12;       /* Text auf goldenen Buttons */
+
+  /* Semantische Aliase */
+  --bg-page: var(--color-bg);
+  --surface-card: var(--color-surface);
+  --surface-raised: var(--color-surface-2);
+  --text-heading: var(--color-text);
+  --text-body: var(--color-text);
+  --text-secondary: var(--color-text-muted);
+  --text-caption: var(--color-text-dim);
+  --border-hairline: var(--color-hairline);
+  --brand: var(--color-primary);
+  --cta: var(--color-accent);
+  --accent-stroke: var(--color-primary);
+
+  /* --- Schriften (Roboto Slab + Roboto, via Google Fonts im BaseLayout) - */
+  --font-heading: 'Roboto Slab', Georgia, 'Times New Roman', serif;
   --font-body: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-headline: var(--font-heading); /* Alt-Alias (Kompatibilität) */
 
   /* --- Schriftgewichte --- */
-  --fw-regular: 400;
-  --fw-semibold: 600;
+  --fw-body: 400;
+  --fw-medium: 600;
   --fw-bold: 700;
+  --fw-regular: var(--fw-body);    /* Alt-Alias */
+  --fw-semibold: var(--fw-medium); /* Alt-Alias */
 
   /* --- Schriftgrößen: fluid via clamp (Bereich 390–1280 px) --- */
   --fs-h1: clamp(2.5rem, 2.25rem + 1.01vw, 3.0625rem);      /* 40 → 49 px */
@@ -34,18 +63,68 @@
   --fs-button: 1rem;        /* 16 px */
   --fs-eyebrow: 0.8125rem;  /* 13 px */
 
-  /* --- Form & Tiefe (Design-Brief Abschnitt 3) --- */
-  --radius: 8px;                                   /* Buttons & Karten leicht gerundet */
-  --hairline: 1px solid rgba(241, 231, 212, 0.12); /* feine Haarlinie, dezent */
-  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+  /* --- Zeilenhöhen --- */
+  --lh-h1: 1.1;
+  --lh-h2: 1.15;
+  --lh-h3: 1.25;
+  --lh-h4: 1.3;
+  --lh-h5: 1.35;
+  --lh-lead: 1.5;
+  --lh-body: 1.6;
+  --lh-small: 1.4;
+  --lh-button: 1.2;
+  --lh-eyebrow: 1.2;
 
-  /* --- Layout (Design-Brief Abschnitt 3, „Inhaltsbreite") --- */
-  --container-max: 1280px;  /* Container */
-  --measure: 680px;         /* Lesebreite Fließtext */
-  --form-max: 480px;        /* Formularbreite */
+  /* --- Laufweite --- */
+  --ls-eyebrow: 0.14em;
+  --ls-heading: -0.01em;
+
+  /* --- Spacing (8-px-System) --- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --section-y: clamp(64px, 5vw + 40px, 96px);
+
+  /* --- Layout-Breiten --- */
+  --container: 1280px;
+  --container-max: var(--container); /* Alt-Alias */
+  --container-narrow: 1120px;
+  --measure: 65ch;         /* Lesebreite Fließtext (Design-System) */
+  --measure-text: 680px;   /* alternative Prosa-Spalte */
+  --form-width: 480px;
+  --form-max: var(--form-width); /* Alt-Alias */
+
+  /* --- Form & Tiefe --- */
+  --radius-sm: 6px;
+  --radius: 8px;    /* Buttons & Karten */
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  --border-width: 1px;
+
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow: 0 4px 12px rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.42), 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-soft: var(--shadow); /* Alt-Alias */
+  --glow-cta: 0 0 0 rgba(232, 178, 74, 0);
+
+  /* --- Motion (minimal, conversion-first) --- */
+  --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+  --dur-fast: 0.18s;
+  --dur: 0.3s;
+  --dur-slow: 0.5s;
+
+  /* Alt-Alias (Haarlinie als Border-Kurzform) */
+  --hairline: 1px solid var(--color-hairline);
 }
 
-/* --- Minimale Basis-Styles, damit die Platzhalter-Seiten testbar sind --- */
+/* --- Basis-Reset & Element-Styles ------------------------------------- */
 *,
 *::before,
 *::after {
@@ -54,17 +133,131 @@
 
 body {
   margin: 0;
-  background-color: var(--color-bg);
-  color: var(--color-text);
+  background: var(--bg-page);
+  color: var(--text-body);
   font-family: var(--font-body);
   font-size: var(--fs-body);
-  font-weight: var(--fw-regular);
-  line-height: 1.6;
+  line-height: var(--lh-body);
+  font-weight: var(--fw-body);
+  -webkit-font-smoothing: antialiased;
 }
 
-h1 {
-  font-family: var(--font-headline);
-  font-size: var(--fs-h1);
-  font-weight: var(--fw-bold);
-  line-height: 1.1;
+html {
+  scroll-behavior: smooth;
 }
+
+h1, h2, h3, h4, h5 {
+  font-family: var(--font-heading);
+  color: var(--text-heading);
+  letter-spacing: var(--ls-heading);
+  margin: 0 0 0.4em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--fs-h1); line-height: var(--lh-h1); font-weight: var(--fw-bold); }
+h2 { font-size: var(--fs-h2); line-height: var(--lh-h2); font-weight: var(--fw-bold); }
+h3 { font-size: var(--fs-h3); line-height: var(--lh-h3); font-weight: var(--fw-medium); }
+h4 { font-size: var(--fs-h4); line-height: var(--lh-h4); font-weight: var(--fw-medium); }
+h5 { font-size: var(--fs-h5); line-height: var(--lh-h5); font-weight: var(--fw-medium); }
+
+p { margin: 0 0 1em; text-wrap: pretty; }
+
+img { max-width: 100%; }
+
+/* Links — Standard + Hover aus der Palette */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--dur-fast) var(--ease);
+}
+a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* CTA-Glow-Puls — nur für den Haupt-CTA „Termin buchen" */
+@keyframes cta-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(232, 178, 74, 0), var(--shadow); }
+  50%      { box-shadow: 0 0 22px 2px rgba(232, 178, 74, 0.45), var(--shadow); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
+
+/* =========================================================================
+   Utilities & Komponenten (vanilla-Umsetzung des Design-Systems)
+   ========================================================================= */
+
+/* Icon-Einfärbung auf Akzent-Gold. Global, weil <Icon> in eigener
+   Astro-Scope rendert und komponenten-scoped Selektoren die <svg> nicht
+   treffen würden. */
+.ic-accent { color: var(--color-accent); flex: 0 0 auto; }
+
+/* --- Button --- */
+.btn {
+  font-family: var(--font-body);
+  font-weight: var(--fw-medium);
+  font-size: var(--fs-button);
+  line-height: var(--lh-button);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  cursor: pointer;
+  text-decoration: none;
+  white-space: nowrap;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    background var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+
+/* Größen */
+.btn--sm { padding: 8px 16px; font-size: var(--fs-small); }
+.btn--md { padding: 13px 24px; }
+.btn--lg { padding: 16px 32px; font-size: 1.0625rem; }
+
+/* Varianten */
+.btn--primary {
+  background: var(--cta);
+  color: var(--color-on-accent);
+  box-shadow: var(--shadow);
+}
+.btn--primary:hover { color: var(--color-on-accent); }
+.btn--secondary {
+  background: var(--color-primary-soft);
+  color: var(--color-accent);
+  border-color: var(--color-hairline-strong);
+}
+.btn--secondary:hover { background: var(--color-accent-soft); color: var(--color-accent); }
+.btn--ghost {
+  background: transparent;
+  color: var(--text-secondary);
+}
+.btn--ghost:hover { color: var(--color-primary); }
+
+/* Glow-Puls */
+.btn--glow { animation: cta-glow 2.4s var(--ease) infinite; }
+
+/* Block-Button (mobil, volle Breite) */
+.btn--block { width: 100%; }
+
+/* --- Card --- */
+.card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space-6);
+  transition:
+    transform var(--dur) var(--ease),
+    box-shadow var(--dur) var(--ease),
+    border-color var(--dur) var(--ease);
+}
+.card--raised { background: var(--surface-raised); }

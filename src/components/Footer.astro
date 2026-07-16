@@ -1,0 +1,123 @@
+---
+// Footer.astro — wiederverwendbarer Footer (aus dem gelieferten Design).
+import Icon from './Icon.astro';
+
+const navLinks = [
+  { href: '/kurs', label: 'Kurs & Termine' },
+  { href: '/gutscheine', label: 'Gutscheine' },
+  { href: '/kaesekessi', label: 'Mobiler Käsekessi' },
+  { href: '/ueber-uns', label: 'Über uns' },
+  { href: '/kontakt', label: 'Kontakt' },
+];
+
+const legalLinks = [
+  { href: '/impressum', label: 'Impressum' },
+  { href: '/datenschutz', label: 'Datenschutz' },
+  { href: '/agb', label: 'AGB' },
+  { href: '/widerruf', label: 'Widerruf' },
+];
+---
+
+<footer class="site-footer">
+  <div class="site-footer__grid">
+    <div class="site-footer__brand">
+      <img src="/logo_3D_m.png" alt="Stolpner Käsemacherei" class="site-footer__logo" />
+      <p class="site-footer__tagline">Echtes Käsehandwerk zum Selbermachen in Stolpen.</p>
+      <p class="site-footer__address">
+        <Icon name="map-pin" size={16} class="ic-accent" /> Vorwerk 10, 01833 Stolpen
+      </p>
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__heading">Navigation</span>
+      {navLinks.map((link) => (
+        <a href={link.href} class="foot-link">{link.label}</a>
+      ))}
+    </div>
+
+    <div class="site-footer__col">
+      <span class="site-footer__heading">Kontakt &amp; Folge uns</span>
+      <a href="tel:+491718181435" class="foot-link foot-link--icon">
+        <Icon name="phone" size={16} class="ic-accent" /> 0171 818 1435
+      </a>
+      <a href="mailto:info@stolpner-kaesemacherei.de" class="foot-link foot-link--icon">
+        <Icon name="mail" size={16} class="ic-accent" /> info@stolpner-kaesemacherei.de
+      </a>
+      <a href="#" class="foot-link foot-link--icon">
+        <Icon name="facebook" size={16} class="ic-accent" /> Facebook
+      </a>
+    </div>
+  </div>
+
+  <div class="site-footer__bar">
+    <span>© 2026 stolpner-kaesemacherei.de — Alle Rechte vorbehalten</span>
+    <span aria-hidden="true">·</span>
+    {legalLinks.map((link) => (
+      <a href={link.href} class="foot-link">{link.label}</a>
+    ))}
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-bg-deep);
+    border-top: 1px solid var(--color-hairline);
+    padding: clamp(44px, 6vw, 64px) clamp(18px, 4vw, 40px) 0;
+  }
+  .site-footer__grid {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: clamp(28px, 4vw, 48px);
+  }
+  .site-footer__brand { display: flex; flex-direction: column; gap: 14px; }
+  .site-footer__logo { height: 48px; width: auto; align-self: flex-start; display: block; }
+  .site-footer__tagline {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+    max-width: 260px;
+  }
+  .site-footer__address {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-caption);
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+  }
+
+  .site-footer__col { display: flex; flex-direction: column; gap: 12px; }
+  .site-footer__heading {
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+
+  .foot-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .foot-link:hover { color: var(--color-primary); text-decoration: none; }
+  .foot-link--icon { display: inline-flex; gap: 8px; align-items: center; }
+
+  .site-footer__bar {
+    max-width: 1080px;
+    margin: clamp(36px, 5vw, 48px) auto 0;
+    padding: 20px 0;
+    border-top: 1px solid var(--color-hairline);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    justify-content: center;
+    align-items: center;
+    font-size: 13px;
+    color: var(--text-caption);
+  }
+</style>

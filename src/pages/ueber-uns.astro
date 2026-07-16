@@ -1,10 +1,622 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 ---
 <BaseLayout
   title="Über uns — Petra & Lutz Gräfe | Stolpner Käsemacherei"
   description="Wer hinter der Stolpner Käsemacherei steht: Petra & Lutz Gräfe, Käsehandwerk mit Alp-Erfahrung und echter Tradition."
+  fullBleed
 >
-  <h1>Über uns</h1>
-  <!-- Inhalt folgt aus Claude Design -->
+  <!-- ===================== 1 · HERO (Doppelporträt) ===================== -->
+  <section class="uu-hero" id="top">
+    <div class="uu-hero__grid">
+      <div class="uu-hero__body">
+        <span class="eyebrow">Petra &amp; Lutz Gräfe · seit 2014</span>
+        <h1 class="uu-hero__title">Hinter jedem Laib stehen zwei Menschen</h1>
+        <p class="uu-hero__sub">…die das Handwerk auf der Alp gelernt haben.</p>
+        <span class="rule rule--left"></span>
+        <p class="uu-hero__quote">„Wir möchten, dass Du nicht nur guten Käse isst, sondern weißt, wie er entsteht — weil Du ihn selbst gemacht hast."</p>
+        <div class="uu-hero__cta">
+          <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+        </div>
+      </div>
+      <div class="uu-hero__figures">
+        <div class="uu-portrait">
+          <img src="/images/petra.jpg" alt="Petra Gräfe, Käsemacherin" />
+        </div>
+        <div class="uu-portrait uu-portrait--offset">
+          <img src="/images/lutz.jpeg" alt="Lutz Gräfe mit Käseplatte" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 2 · WER WIR SIND ===================== -->
+  <section class="section section--deep">
+    <div class="uu-split">
+      <div class="uu-split__body">
+        <span class="eyebrow">Lern uns kennen</span>
+        <h2 class="uu-split__title">Zwei Menschen, ein Handwerk — und die Freude, es zu teilen</h2>
+        <span class="rule rule--left"></span>
+        <p class="uu-split__text">Seit 2014 stehen wir in Stolpen am Kessel, über 1.000 Menschen haben hier schon ihren ersten eigenen Käse gemacht. Wir sind Petra und Lutz Gräfe. Petra ist Agraringenieurin und hat ihr Käsehandwerk über mehrere Sommer auf einer Schweizer Alp gelernt, dort, wo Milch noch von Hand im Kupferkessel verarbeitet wird. Was sie dort mitgenommen hat, gibt sie heute an Dich weiter. Lutz sorgt dafür, dass rundherum alles läuft, damit Du Dich ganz auf Deinen Käse konzentrieren kannst.</p>
+      </div>
+      <div class="uu-figure">
+        <div class="uu-figure__glow" aria-hidden="true"></div>
+        <img src="/images/stolpner_kaesemacherei_transp_1330x1132.png" alt="Petra und Lutz Gräfe im Reifekeller" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3 · UNSERE GESCHICHTE ===================== -->
+  <section class="section">
+    <div class="uu-story">
+      <span class="eyebrow">Wie alles begann</span>
+      <h2 class="uu-story__title">Ein Sommer auf der Alp — und in mir ist etwas umgekippt</h2>
+      <span class="rule rule--left"></span>
+      <div class="uu-story__cols">
+        <p>Ich habe Agrarwissenschaften studiert und dachte, ich wüsste, wie Lebensmittel entstehen. Bis ich zum ersten Mal einen Sommer auf einer Schweizer Alp verbrachte, bei einer Bauernfamilie, die seit Generationen Käse macht.</p>
+        <p>Da stand ich morgens im Stall, den Geruch der Kühe in der Nase, und sah zu, wie der Bauer die frische Milch in einen riesigen Kupferkessel goss. Kein Knopfdruck, keine Maschine, nur seine Hände, ein Gespür und viel Geduld. Aus dieser Milch wurde vor meinen Augen echter Käse. In diesem Moment ist etwas in mir umgekippt.</p>
+        <p>Ich merkte: Erst wer selbst erlebt, wie viel Arbeit und Gefühl in einem einzigen Laib stecken, versteht wirklich, was guter Käse ist. Dieses Wissen wollte ich nicht für mich behalten. Ich kam mehrere Sommer wieder, lernte jeden Handgriff, und irgendwann war klar, dass ich das weitergeben muss.</p>
+        <p>Heute, über zehn Jahre und mehr als 1.000 Teilnehmer später, stehe ich in Stolpen am Kessel, mit Menschen wie Dir daneben. Und jedes Mal, wenn jemand seinen ersten eigenen Laib in den Händen hält, sehe ich denselben Moment, der mich damals gepackt hat.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 4 · MISSION ===================== -->
+  <section class="section uu-mission">
+    <div class="uu-mission__inner">
+      <span class="eyebrow">Unsere Mission</span>
+      <h2 class="uu-mission__title">Handwerk erlebbar machen und weitergeben</h2>
+      <span class="rule"></span>
+      <p>Die meiste Milch verschwindet heute in großen Fabriken, und was als Käse zurückkommt, hat mit Handwerk oft wenig zu tun. Wir halten dagegen. Bei uns entsteht Käse so, wie er seit Generationen entsteht: von Hand, im Kessel, mit Zeit und Geduld.</p>
+      <p>Unsere Mission ist, dieses Handwerk erlebbar zu machen und weiterzugeben. Wir wollen, dass Du nicht nur guten Käse kaufst, sondern selbst spürst, wie viel in einem einzigen Laib steckt. Denn wer das einmal erlebt hat, schmeckt den Unterschied für immer.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 5 · WERTE & HALTUNG ===================== -->
+  <section class="section">
+    <div class="section__head">
+      <span class="eyebrow">Wofür wir stehen</span>
+      <h2 class="section__title">Werte, die bei uns am Kessel gelten</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="uu-values">
+      <article class="card uu-value">
+        <span class="uu-value__icon"><Icon name="sparkles" size={22} class="ic-accent" /></span>
+        <h3 class="uu-value__title">Erlebnis statt Zuschauen</h3>
+        <p class="uu-value__text">Du stehst bei uns selbst am Kessel, riechst die warme Milch und formst Deinen eigenen Laib. Am Ende nimmst Du ihn mit nach Hause.</p>
+      </article>
+      <article class="card uu-value">
+        <span class="uu-value__icon"><Icon name="heart" size={22} class="ic-accent" /></span>
+        <h3 class="uu-value__title">Ehrlichkeit bei dem, was drin ist</h3>
+        <p class="uu-value__text">Du siehst mit eigenen Augen, aus wie wenig echter Käse entsteht, und weißt danach genau, was auf Deinem Brot liegt.</p>
+      </article>
+      <article class="card uu-value">
+        <span class="uu-value__icon"><Icon name="gift" size={22} class="ic-accent" /></span>
+        <h3 class="uu-value__title">Wissen, das weitergegeben gehört</h3>
+        <p class="uu-value__text">Wir behalten unser Können nicht für uns. Was auf der Alp fast verschwunden wäre, soll in möglichst vielen Händen weiterleben.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===================== 6 · KOMPETENZ & VERTRAUEN ===================== -->
+  <section class="section section--deep">
+    <div class="uu-split uu-split--top">
+      <div class="uu-split__body">
+        <span class="eyebrow">Warum Du bei uns in guten Händen bist</span>
+        <h2 class="uu-split__title">Du lernst von einer echten Käsemacherin — nicht aus einem Video</h2>
+        <span class="rule rule--left"></span>
+        <p class="uu-split__text">Du lernst von einer Käsemacherin, die ihr Handwerk dort geholt hat, wo es noch von Hand gemacht wird.</p>
+      </div>
+      <ul class="uu-facts">
+        <li class="uu-fact">
+          <Icon name="mountain-snow" size={22} class="ic-accent uu-fact__icon" />
+          <div>
+            <h3 class="uu-fact__title">Auf der Schweizer Alp gelernt</h3>
+            <p class="uu-fact__text">Mehrere Sommer bei einer Bauernfamilie am Kupferkessel.</p>
+          </div>
+        </li>
+        <li class="uu-fact">
+          <Icon name="calendar" size={22} class="ic-accent uu-fact__icon" />
+          <div>
+            <h3 class="uu-fact__title">Seit 2014 aktiv</h3>
+            <p class="uu-fact__text">Über zehn Jahre Erfahrung am Kessel.</p>
+          </div>
+        </li>
+        <li class="uu-fact">
+          <Icon name="users" size={22} class="ic-accent uu-fact__icon" />
+          <div>
+            <h3 class="uu-fact__title">Über 1.000 Teilnehmer</h3>
+            <p class="uu-fact__text">So viele haben bei uns schon ihren eigenen Käse gemacht.</p>
+          </div>
+        </li>
+        <li class="uu-fact uu-fact--last">
+          <Icon name="heart" size={22} class="ic-accent uu-fact__icon" />
+          <div>
+            <h3 class="uu-fact__title">Kleine Gruppen bis 14 Personen</h3>
+            <p class="uu-fact__text">Persönliche Betreuung — Petra steht den ganzen Abend neben Dir am Kessel.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 7 · BEKANNT AUS ===================== -->
+  <section class="section">
+    <div class="uu-press">
+      <span class="eyebrow">Bekannt aus</span>
+      <p class="uu-press__intro">Auch außerhalb von Stolpen hat sich herumgesprochen, was bei uns am Kessel passiert.</p>
+      <div class="uu-press__logos">
+        <a
+          href="https://www.mdr.de/sachsenradio/marios-genuesse-podcast-sachsenradio-kaese-herstellen-100.html"
+          target="_blank"
+          rel="noopener"
+          class="uu-press__card"
+        >
+          <span class="uu-press__name">MDR</span>
+          <span class="uu-press__desc">Radiobeitrag über die Käsemacherei</span>
+          <span class="uu-press__link"><Icon name="radio" size={16} /> Beitrag anhören</span>
+        </a>
+        <a
+          href="https://www.youtube.com/watch?v=IFZhB_zjGYo"
+          target="_blank"
+          rel="noopener"
+          class="uu-press__card"
+        >
+          <span class="uu-press__name">hinReisend</span>
+          <span class="uu-press__desc">Filmporträt über Petra &amp; ihr Handwerk</span>
+          <span class="uu-press__link"><Icon name="youtube" size={16} /> Auf YouTube ansehen</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 8 · KUNDENSTIMMEN ===================== -->
+  <section class="section section--deep">
+    <div class="section__head">
+      <span class="eyebrow">Schön, wenn es anderen gefallen hat</span>
+      <h2 class="section__title">Das sagen Teilnehmer nach ihrem Käse-Abend</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="uu-reviews">
+      <div class="card review">
+        <div class="review__stars" aria-label="5 von 5 Sternen">
+          <Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} />
+        </div>
+        <p class="review__quote">„Käse selber machen war einfach toll, danke nochmal an Petra und den Tino."</p>
+        <span class="review__author">— Ralli</span>
+      </div>
+      <div class="card review">
+        <div class="review__stars" aria-label="5 von 5 Sternen">
+          <Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} /><Icon name="star" size={18} />
+        </div>
+        <p class="review__quote">„Die Rezepte sind einfach, auch für Nicht-Profis in der Küche gut umsetzbar. Rundherum ein richtig schöner Nachmittag!"</p>
+        <span class="review__author">— Juli</span>
+      </div>
+    </div>
+    <p class="uu-reviews__punch">Vielleicht stehst schon bald Du hier mit Deiner eigenen Geschichte.</p>
+  </section>
+
+  <!-- ===================== 9 · ABSCHLUSS-CTA ===================== -->
+  <section class="uu-final">
+    <div class="uu-final__inner">
+      <span class="eyebrow">Lern uns am besten persönlich kennen</span>
+      <h2 class="uu-final__title">Am schönsten ist es, selbst bei uns am Kessel zu stehen</h2>
+      <span class="rule"></span>
+      <p class="uu-final__text">Es gibt nur wenige Termine im Jahr, und jede Runde ist auf 14 Plätze begrenzt. Wenn Du Lust hast, Deinen eigenen Käse zu machen, sichere Dir jetzt Deinen Platz.</p>
+      <div class="btn-row">
+        <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+        <a href="/gutscheine" class="btn btn--secondary btn--lg">Gutschein verschenken</a>
+      </div>
+      <p class="uu-final__note">Kein passender Termin dabei oder als Geschenk gedacht? <a href="/gutscheine">Verschenk den Käse-Abend als Gutschein.</a></p>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* ---- Gemeinsame Bausteine (seiten-scoped, wie in index.astro) ---- */
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .rule {
+    display: block;
+    width: 48px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    margin: 22px auto;
+  }
+  .rule--left { margin-left: 0; margin-right: 0; }
+
+  .btn-row {
+    display: flex;
+    gap: 14px;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .section {
+    padding: clamp(56px, 8vw, 96px) clamp(18px, 4vw, 40px);
+  }
+  .section--deep {
+    background: var(--color-bg-deep);
+    border-top: 1px solid var(--color-hairline);
+  }
+  .section__head {
+    max-width: 820px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .section__title {
+    font-size: clamp(26px, 3.6vw, 34px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+
+  /* ---- 1 · Hero (Doppelporträt) ---- */
+  .uu-hero {
+    padding: clamp(44px, 6vw, 72px) clamp(18px, 4vw, 40px) clamp(48px, 7vw, 80px);
+  }
+  .uu-hero__grid {
+    max-width: 1180px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+    align-items: center;
+  }
+  .uu-hero__title {
+    font-weight: 700;
+    font-size: clamp(30px, 4.6vw, 46px);
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    margin: 16px 0 0;
+    color: var(--color-text);
+  }
+  .uu-hero__sub {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(18px, 2.6vw, 24px);
+    line-height: 1.25;
+    margin: 14px 0 0;
+    color: var(--color-primary);
+  }
+  .uu-hero__quote {
+    margin: 0;
+    max-width: 500px;
+    font-size: clamp(17px, 2vw, 19px);
+    line-height: 1.55;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  .uu-hero__cta { margin-top: 28px; }
+
+  .uu-hero__figures {
+    display: flex;
+    gap: clamp(12px, 2vw, 16px);
+    align-items: flex-start;
+  }
+  .uu-portrait {
+    position: relative;
+    flex: 1;
+    aspect-ratio: 3 / 4;
+    border-radius: 12px;
+    border: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .uu-portrait--offset { margin-top: clamp(28px, 5vw, 48px); }
+  .uu-portrait img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .uu-portrait:first-child img { object-position: center; }
+  .uu-portrait--offset img { object-position: center top; }
+
+  /* ---- 2 / 6 · Split (Text + Bild/Fakten) ---- */
+  .uu-split {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: clamp(32px, 5vw, 56px);
+    align-items: center;
+  }
+  .uu-split--top { align-items: start; }
+  .uu-split__title {
+    font-weight: 700;
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .uu-split__text {
+    margin: 0;
+    font-size: clamp(16px, 1.9vw, 18px);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .uu-figure {
+    position: relative;
+    display: grid;
+    place-items: center;
+    padding: 8px;
+  }
+  .uu-figure__glow {
+    position: absolute;
+    width: min(88%, 420px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 154, 60, 0.22), rgba(200, 154, 60, 0) 70%);
+  }
+  .uu-figure img {
+    position: relative;
+    width: 100%;
+    max-width: 460px;
+    height: auto;
+    display: block;
+  }
+
+  /* Fakten-Liste (Abschnitt 6) */
+  .uu-facts {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  .uu-fact {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .uu-fact--last { border-bottom: 0; }
+  .uu-fact__icon { margin-top: 2px; }
+  .uu-fact__title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 17px;
+    margin: 0 0 3px;
+    color: var(--color-text);
+  }
+  .uu-fact__text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  /* ---- 3 · Geschichte (Zwei-Spalten-Prosa) ---- */
+  .uu-story { max-width: 1080px; margin: 0 auto; }
+  .uu-story__title {
+    font-weight: 700;
+    font-size: clamp(26px, 3.8vw, 36px);
+    line-height: 1.12;
+    margin: 12px 0 0;
+    max-width: 760px;
+    color: var(--color-text);
+  }
+  .uu-story__cols {
+    columns: 2;
+    column-gap: clamp(32px, 5vw, 56px);
+    margin-top: 6px;
+    font-size: clamp(16px, 1.9vw, 17px);
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .uu-story__cols p { margin: 0 0 16px; break-inside: avoid; }
+  .uu-story__cols p:last-child { margin-bottom: 0; }
+  @media (max-width: 640px) {
+    .uu-story__cols { columns: 1; }
+  }
+
+  /* ---- 4 · Mission ---- */
+  .uu-mission {
+    position: relative;
+    text-align: center;
+    background:
+      radial-gradient(120% 130% at 50% 0%, #3a2c18 0%, rgba(58, 44, 24, 0.35) 45%, rgba(33, 23, 16, 0) 72%),
+      var(--color-bg-deep);
+    border-top: 1px solid var(--color-hairline);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .uu-mission__inner {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .uu-mission__title {
+    font-weight: 700;
+    font-size: clamp(24px, 3.4vw, 32px);
+    line-height: 1.2;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .uu-mission p {
+    margin: 0 0 16px;
+    font-size: clamp(16px, 1.9vw, 18px);
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .uu-mission p:last-child { margin-bottom: 0; }
+
+  /* ---- 5 · Werte (Karten) ---- */
+  .uu-values {
+    max-width: 1080px;
+    margin: clamp(36px, 5vw, 52px) auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: clamp(20px, 3vw, 28px);
+  }
+  .uu-value__icon {
+    display: inline-flex;
+    width: 48px;
+    height: 48px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    border: 1px solid var(--color-hairline-strong);
+    margin-bottom: 16px;
+  }
+  .uu-value__title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 20px;
+    margin: 0 0 8px;
+    color: var(--color-text);
+  }
+  .uu-value__text {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+
+  /* ---- 7 · Bekannt aus ---- */
+  .uu-press {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .uu-press__intro {
+    margin: 14px auto 0;
+    max-width: 600px;
+    font-size: clamp(16px, 1.9vw, 18px);
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .uu-press__logos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(16px, 3vw, 28px);
+    margin-top: clamp(28px, 4vw, 36px);
+  }
+  .uu-press__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 22px 36px;
+    border-radius: 12px;
+    border: 1px solid var(--color-hairline);
+    background: var(--color-surface);
+    box-shadow: var(--shadow);
+    min-width: 200px;
+    text-decoration: none;
+    transition: border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
+  }
+  .uu-press__card:hover {
+    border-color: var(--color-hairline-strong);
+    transform: translateY(-2px);
+    text-decoration: none;
+  }
+  .uu-press__name {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 26px;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+  .uu-press__desc {
+    font-size: 13px;
+    color: var(--text-caption);
+  }
+  .uu-press__link {
+    display: inline-flex;
+    gap: 6px;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  /* ---- 8 · Kundenstimmen ---- */
+  .uu-reviews {
+    max-width: 960px;
+    margin: clamp(32px, 5vw, 44px) auto 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: clamp(20px, 3vw, 28px);
+  }
+  .review__stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 14px;
+    color: var(--color-accent);
+  }
+  .review__quote {
+    margin: 0 0 16px;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+  .review__author {
+    font-weight: 600;
+    color: var(--text-secondary);
+  }
+  .uu-reviews__punch {
+    margin: clamp(28px, 4vw, 40px) auto 0;
+    max-width: 600px;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(18px, 2.2vw, 22px);
+    line-height: 1.35;
+    color: var(--color-text);
+  }
+
+  /* ---- 9 · Abschluss-CTA ---- */
+  .uu-final {
+    position: relative;
+    padding: clamp(56px, 8vw, 100px) clamp(18px, 4vw, 40px);
+    text-align: center;
+    background:
+      radial-gradient(120% 130% at 50% 100%, #5a4326 0%, rgba(58, 44, 24, 0.4) 42%, rgba(33, 23, 16, 0) 72%),
+      linear-gradient(#231a10, #1b140c);
+    border-top: 1px solid var(--color-hairline);
+  }
+  .uu-final__inner {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .uu-final__title {
+    font-weight: 700;
+    font-size: clamp(28px, 4.2vw, 42px);
+    line-height: 1.1;
+    margin: 14px 0 0;
+    color: var(--color-text);
+  }
+  .uu-final__text {
+    margin: 0;
+    max-width: 600px;
+    font-size: clamp(16px, 2vw, 19px);
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  .uu-final__note {
+    margin: 22px 0 0;
+    font-size: 14px;
+    color: var(--text-caption);
+  }
+</style>

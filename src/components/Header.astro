@@ -1,0 +1,167 @@
+---
+// Header.astro — wiederverwendbarer, sticky Header (zentriertes Layout, „1b").
+// Logo + zentrierte Navigation + Haupt-CTA. Auf Mobil: Hamburger-Menü.
+import Icon from './Icon.astro';
+
+// Geplante Routen aus der Website-Architektur.
+const navLinks = [
+  { href: '/kurs', label: 'Kurs & Termine' },
+  { href: '/gutscheine', label: 'Gutscheine' },
+  { href: '/kaesekessi', label: 'Mobiler Käsekessi' },
+  { href: '/ueber-uns', label: 'Über uns' },
+  { href: '/kontakt', label: 'Kontakt' },
+];
+
+// Haupt-CTA → Buchungslink (Platzhalter: Kurs-/Termin-Seite).
+const bookingUrl = '/kurs';
+---
+
+<header class="site-header" id="top">
+  <div class="site-header__inner">
+    <a href="/" class="site-header__logo" aria-label="Zur Startseite — Stolpner Käsemacherei">
+      <img src="/logo_3D_m.png" alt="Stolpner Käsemacherei" />
+    </a>
+
+    <button
+      type="button"
+      class="nav-toggle"
+      aria-label="Menü öffnen"
+      aria-expanded="false"
+      aria-controls="site-nav"
+    >
+      <Icon name="menu" size={26} class="nav-toggle__open" />
+      <Icon name="x" size={26} class="nav-toggle__close" />
+    </button>
+
+    <nav id="site-nav" class="site-nav" aria-label="Hauptnavigation">
+      {navLinks.map((link) => (
+        <a href={link.href} class="nav-link">{link.label}</a>
+      ))}
+      <a href={bookingUrl} class="btn btn--primary btn--sm btn--glow nav-cta">Termin buchen</a>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in srgb, var(--color-bg-deep) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-hairline);
+  }
+  .site-header__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 14px clamp(18px, 4vw, 40px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+  .site-header__logo { display: block; line-height: 0; }
+  .site-header__logo img {
+    height: clamp(40px, 6vw, 52px);
+    width: auto;
+    display: block;
+  }
+
+  .site-nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: clamp(14px, 2.4vw, 26px);
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .nav-link {
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease);
+  }
+  .nav-link:hover { color: var(--color-primary); text-decoration: none; }
+
+  /* Hamburger — nur mobil sichtbar */
+  .nav-toggle {
+    display: none;
+    position: absolute;
+    right: clamp(18px, 4vw, 40px);
+    top: 50%;
+    transform: translateY(-50%);
+    background: transparent;
+    border: 0;
+    padding: 4px;
+    color: var(--color-text);
+    cursor: pointer;
+    line-height: 0;
+  }
+  /* :global(), da die <svg>-Icons aus Icon.astro in eigener Scope liegen. */
+  .nav-toggle :global(.nav-toggle__close) { display: none; }
+
+  /* --- Mobil --- */
+  @media (max-width: 820px) {
+    .site-header__inner {
+      flex-direction: row;
+      justify-content: center;
+      position: relative;
+    }
+    .nav-toggle { display: inline-flex; }
+
+    .site-nav {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 4px;
+      padding: 12px clamp(18px, 4vw, 40px) 20px;
+      background: var(--color-bg-deep);
+      border-bottom: 1px solid var(--color-hairline);
+      box-shadow: var(--shadow-lg);
+    }
+    .site-header.is-open .site-nav { display: flex; }
+    .site-header.is-open .nav-toggle :global(.nav-toggle__open) { display: none; }
+    .site-header.is-open .nav-toggle :global(.nav-toggle__close) { display: inline-flex; }
+
+    .nav-link {
+      padding: 12px 4px;
+      border-bottom: 1px solid var(--color-hairline);
+      font-size: 16px;
+    }
+    .nav-cta {
+      margin-top: 12px;
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const toggle = header?.querySelector<HTMLButtonElement>('.nav-toggle');
+  const nav = header?.querySelector<HTMLElement>('#site-nav');
+
+  function setOpen(open: boolean) {
+    if (!header || !toggle) return;
+    header.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+  }
+
+  toggle?.addEventListener('click', () => {
+    setOpen(!header?.classList.contains('is-open'));
+  });
+
+  // Nach Klick auf einen Menülink schließen (Anker/Navigation).
+  nav?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) setOpen(false);
+  });
+
+  // Mit Escape schließen.
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setOpen(false);
+  });
+</script>
