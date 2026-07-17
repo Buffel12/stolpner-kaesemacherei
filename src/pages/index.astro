@@ -86,8 +86,8 @@ import Icon from '../components/Icon.astro';
   <section class="section">
     <div class="feature-grid">
       <div class="feature">
-        <div class="feature__media feature__media--placeholder">
-          <span class="feature__caption"><Icon name="camera" size={14} /> Foto: Teilnehmer:in hält den eigenen Laib</span>
+        <div class="feature__media">
+          <img src="/images/teilnehmer-am-kessel.jpeg" alt="Teilnehmerin hält lachend ihren eigenen frischen Käse am Kessel" class="feature__img--center" />
         </div>
         <h3 class="feature__title">Du musst nichts können — außer Lust auf echten Käse</h3>
         <p class="feature__text">Viele stehen anfangs etwas unsicher am Kessel. Petra bleibt an Deiner Seite und sagt Dir bei jedem Schritt genau, was zu tun ist — ganz gleich, wie oft es zu Hause schon schiefging. Am Ende hältst Du Deinen eigenen Laib in der Hand und denkst: das habe ich wirklich selbst gemacht.</p>
@@ -149,11 +149,11 @@ import Icon from '../components/Icon.astro';
     </div>
 
     <div class="gallery">
-      <div class="gallery__cell"><img src="/images/fertige-laibe-der-teilnehmer.jpeg" alt="Fertige Käselaibe der Teilnehmer mit Wein und Blick auf Stolpen" /></div>
-      <div class="gallery__cell"><img src="/images/teilnehmer-am-kessel.jpg" alt="Teilnehmer am Kessel in der Stolpner Käsemacherei" /></div>
-      <div class="gallery__cell"><img src="/images/angeschnittener-gereifter-kaese.jpg" alt="Angeschnittener, gereifter Käse auf der Etagere" /></div>
+      <div class="gallery__cell"><img src="/images/teilnehmer-mit-eigenen-kaese.jpeg" alt="Teilnehmer mit seinem selbstgemachten Frischkäse und einer Käse-Etagere" /></div>
+      <div class="gallery__cell"><img src="/images/teilnehmer-mit-eigenen-kaese-3.jpeg" alt="Käsemacherin mit selbstgemachtem Käse und einer Käseglocke voller Spezialitäten" /></div>
+      <div class="gallery__cell"><img src="/images/teilnehmer-mit-eigenen-kaese-2.jpeg" alt="Teilnehmerin mit ihrem selbstgemachten Käse und einer Käseglocke voller Spezialitäten" /></div>
     </div>
-    <p class="gallery__caption">Echte Laibe von echten Teilnehmern — jeder davon zu Hause fertig gereift.</p>
+    <p class="gallery__caption">Das nehmen unsere Gäste mit nach Hause: den eigenen Käse und ein Lächeln dazu.</p>
 
     <p class="closing-line">Der nächste selbst gemachte Käse könnte Deiner sein.</p>
   </section>
@@ -259,7 +259,8 @@ import Icon from '../components/Icon.astro';
     position: absolute;
     inset: 0;
     z-index: 1;
-    background: radial-gradient(120% 130% at 50% 0%, rgba(27, 20, 12, 0.55) 0%, rgba(27, 20, 12, 0.72) 45%, rgba(27, 20, 12, 0.92) 100%);
+    /* Flache Deckfarbe exakt wie im Design (#0F0C08 @ 43 %). */
+    background-color: #0f0c086e;
   }
   .hero__content {
     position: relative;
@@ -393,29 +394,15 @@ import Icon from '../components/Icon.astro';
   .feature { display: flex; flex-direction: column; gap: 16px; }
   .feature__media {
     position: relative;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1;
     border-radius: 12px;
     border: 1px solid var(--color-hairline);
     box-shadow: var(--shadow);
     overflow: hidden;
   }
   .feature__media img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
-  .feature__media--placeholder {
-    background: radial-gradient(120% 120% at 30% 15%, #5a4326 0%, #3a2c18 45%, #211710 100%);
-    display: flex;
-    align-items: flex-end;
-    overflow: hidden;
-  }
-  .feature__caption {
-    display: inline-flex;
-    gap: 6px;
-    align-items: center;
-    margin: 14px;
-    font-size: 12px;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: rgba(241, 231, 212, 0.72);
-  }
+  /* Erstes Foto (am Kessel) mittig ausrichten — wie im Design. */
+  .feature__media img.feature__img--center { object-position: center center; }
   .feature__title {
     font-weight: 700;
     font-size: clamp(21px, 2.6vw, 26px);
