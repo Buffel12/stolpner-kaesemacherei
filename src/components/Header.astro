@@ -14,6 +14,14 @@ const navLinks = [
 
 // Haupt-CTA → Buchungslink (Platzhalter: Kurs-/Termin-Seite).
 const bookingUrl = '/kurs';
+
+// Aktuellen Pfad ermitteln (ohne abschließenden Slash), um den
+// aktiven Menüpunkt zu markieren.
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const path = href.replace(/\/$/, '') || '/';
+  return path === '/' ? currentPath === '/' : currentPath === path || currentPath.startsWith(path + '/');
+};
 ---
 
 <header class="site-header" id="top">
@@ -35,7 +43,11 @@ const bookingUrl = '/kurs';
 
     <nav id="site-nav" class="site-nav" aria-label="Hauptnavigation">
       {navLinks.map((link) => (
-        <a href={link.href} class="nav-link">{link.label}</a>
+        <a
+          href={link.href}
+          class:list={['nav-link', { 'nav-link--active': isActive(link.href) }]}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+        >{link.label}</a>
       ))}
       <a href={bookingUrl} class="btn btn--primary btn--sm btn--glow nav-cta">Termin buchen</a>
     </nav>
@@ -82,6 +94,22 @@ const bookingUrl = '/kurs';
     transition: color var(--dur-fast) var(--ease);
   }
   .nav-link:hover { color: var(--color-primary); text-decoration: none; }
+
+  /* Aktive Seite — hervorgehoben mit Farbe + Unterstrich. */
+  .nav-link--active {
+    color: var(--color-primary);
+    position: relative;
+  }
+  .nav-link--active::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -6px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--color-primary);
+  }
 
   /* Hamburger — nur mobil sichtbar */
   .nav-toggle {
@@ -135,6 +163,12 @@ const bookingUrl = '/kurs';
     .nav-cta {
       margin-top: 12px;
       width: 100%;
+    }
+    /* Mobil: Unterstrich weg, stattdessen Farbakzent links. */
+    .nav-link--active::after { display: none; }
+    .nav-link--active {
+      border-left: 3px solid var(--color-primary);
+      padding-left: 10px;
     }
   }
 </style>

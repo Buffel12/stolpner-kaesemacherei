@@ -1,10 +1,594 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
+
+// Web3Forms Access Key (Versand-Ziel dieser Seite).
+const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
 ---
 <BaseLayout
   title="Kontakt & Anfahrt — Stolpner Käsemacherei"
   description="So erreichst du die Stolpner Käsemacherei: Anfahrt, Telefon und E-Mail für deine Fragen rund um Kurse und Gutscheine."
+  fullBleed
 >
-  <h1>Kontakt</h1>
-  <!-- Inhalt folgt aus Claude Design -->
+  <!-- ===================== 1 · SEITENKOPF ===================== -->
+  <section class="ko-head" id="top">
+    <div class="ko-head__inner">
+      <span class="eyebrow">Kontakt</span>
+      <h1 class="ko-head__title">Schreib uns — wir freuen uns auf Dich</h1>
+      <span class="rule"></span>
+      <p class="ko-head__lead">Egal ob Frage zum Kurs, Wunsch nach einem Termin oder Gutschein-Idee: Schreib uns kurz, wir melden uns meist innerhalb von zwei Werktagen.</p>
+    </div>
+  </section>
+
+  <!-- ===================== 2 · KONTAKTKANÄLE ===================== -->
+  <section class="ko-channels">
+    <p class="ko-channels__intro">Am schnellsten erreichst Du uns so:</p>
+    <div class="ko-channels__grid">
+      <div class="ko-channel">
+        <span class="ko-channel__icon"><Icon name="phone" size={21} class="ic-accent" /></span>
+        <h2 class="ko-channel__title">Telefon</h2>
+        <p class="ko-channel__note">Ruf einfach an — Mo–Fr, 9–17 Uhr</p>
+        <a href="tel:+491718181435" class="ko-channel__value">0171 818 1435</a>
+      </div>
+      <div class="ko-channel">
+        <span class="ko-channel__icon"><Icon name="mail" size={21} class="ic-accent" /></span>
+        <h2 class="ko-channel__title">E-Mail</h2>
+        <p class="ko-channel__note">Schreib uns, wann es Dir passt</p>
+        <a href="mailto:info@stolpner-kaesemacherei.de" class="ko-channel__value ko-channel__value--mail">info@stolpner-kaesemacherei.de</a>
+      </div>
+      <div class="ko-channel">
+        <span class="ko-channel__icon"><Icon name="map-pin" size={21} class="ic-accent" /></span>
+        <h2 class="ko-channel__title">Vor Ort</h2>
+        <p class="ko-channel__note">Hier findest Du die Käsemacherei</p>
+        <span class="ko-channel__value ko-channel__value--plain">Vorwerk 10, 01833 Stolpen</span>
+      </div>
+      <div class="ko-channel">
+        <span class="ko-channel__icon"><Icon name="facebook" size={21} class="ic-accent" /></span>
+        <h2 class="ko-channel__title">Facebook</h2>
+        <p class="ko-channel__note">Schau vorbei, was bei uns los ist</p>
+        <a href="#" class="ko-channel__value">Stolpner Käsemacherei</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3 · FORMULAR ===================== -->
+  <section id="formular" class="ko-form-section">
+    <div class="ko-form-wrap">
+      <div class="ko-form-head">
+        <span class="eyebrow">Kontaktformular</span>
+        <h2 class="ko-form-head__title">Schreib uns direkt hier</h2>
+        <span class="rule"></span>
+        <p class="ko-form-head__lead">Ein paar Zeilen genügen. Je mehr wir wissen, desto besser können wir Dir helfen.</p>
+      </div>
+      <div class="ko-form-card">
+        <form id="kontakt-form" class="ko-form" action="https://api.web3forms.com/submit" method="POST">
+          <!-- Web3Forms Pflicht- & Steuerfelder -->
+          <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
+          <input type="hidden" name="subject" value="Neue Kontaktanfrage über die Website" />
+          <input type="hidden" name="from_name" value="Stolpner Käsemacherei — Website" />
+          <input type="hidden" name="replyto" value="" />
+          <!-- Honeypot (Spamschutz) — für Menschen unsichtbar -->
+          <input type="checkbox" name="botcheck" class="ko-hp" tabindex="-1" autocomplete="off" />
+
+          <div class="ko-field">
+            <label class="ko-lab" for="k-name">Wie heißt Du?</label>
+            <input id="k-name" name="name" class="ko-in" type="text" placeholder="Dein Name" autocomplete="name" />
+          </div>
+          <div class="ko-field">
+            <label class="ko-lab" for="k-mail">Deine E-Mail (damit wir antworten können)</label>
+            <input id="k-mail" name="email" class="ko-in" type="email" placeholder="name@beispiel.de" autocomplete="email" required />
+          </div>
+          <div class="ko-field">
+            <label class="ko-lab" for="k-tel">Telefon (falls wir kurz zurückrufen sollen) — optional</label>
+            <input id="k-tel" name="telefon" class="ko-in" type="tel" placeholder="Optional" autocomplete="tel" />
+          </div>
+          <div class="ko-field">
+            <label class="ko-lab" for="k-thema">Worum geht's?</label>
+            <select id="k-thema" name="anliegen" class="ko-in">
+              <option value="">Bitte wählen …</option>
+              <option>Frage zum Kurs</option>
+              <option>Termin / Buchung</option>
+              <option>Gutschein</option>
+              <option>Sonstiges</option>
+            </select>
+          </div>
+          <div class="ko-field">
+            <label class="ko-lab" for="k-msg">Deine Nachricht</label>
+            <textarea id="k-msg" name="message" class="ko-in" rows="5" placeholder="Erzähl uns kurz, worum es geht …"></textarea>
+          </div>
+
+          <label class="ko-consent">
+            <input type="checkbox" name="datenschutz" class="ko-consent__box" required />
+            <span>Ich habe die Informationen zum <a href="/datenschutz">Datenschutz</a> zur Kenntnis genommen. Mit der Nutzung dieses Formulars erkläre ich mich damit einverstanden, dass meine Daten zur Bearbeitung meines Anliegens verwendet und gespeichert werden.</span>
+          </label>
+
+          <button type="submit" class="btn btn--primary btn--lg btn--glow btn--block">Nachricht absenden</button>
+
+          <!-- Zustände: Erfolg / Fehler -->
+          <div class="ko-alert ko-alert--success" data-form-success role="status">
+            <Icon name="check-circle" size={19} class="ko-alert__icon" />
+            <span>Danke für deine Nachricht! Wir melden uns so schnell wie möglich bei dir.</span>
+          </div>
+          <div class="ko-alert ko-alert--error" data-form-error role="alert">
+            <Icon name="alert-circle" size={19} class="ko-alert__icon" />
+            <span>Da ist etwas schiefgelaufen. Bitte versuch es noch einmal oder schreib uns direkt an info@stolpner-kaesemacherei.de.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 4 · WAS PASSIERT NACH DEM ABSENDEN ===================== -->
+  <section class="ko-after">
+    <div class="ko-after__inner">
+      <span class="ko-after__icon"><Icon name="clock" size={24} class="ic-accent" /></span>
+      <div>
+        <h2 class="ko-after__title">Was nach dem Absenden passiert</h2>
+        <p class="ko-after__text">Nach dem Absenden musst Du nichts weiter tun. Wir bekommen Deine Nachricht sofort, schauen sie uns in Ruhe an und antworten Dir persönlich — meistens innerhalb von zwei Werktagen. Wenn Du nach einem Termin gefragt hast, sagen wir Dir gleich, was gerade frei ist. Falls Du bis dahin nichts hörst, wirf einen Blick in Deinen Spam-Ordner oder ruf uns einfach kurz an.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 5 · NÄCHSTE TERMINE / WARTELISTE ===================== -->
+  <section class="ko-wait">
+    <div class="ko-wait__box">
+      <span class="eyebrow">Kein Termin frei?</span>
+      <h2 class="ko-wait__title">Wir setzen Dich auf die Liste</h2>
+      <span class="rule"></span>
+      <p class="ko-wait__text">Petra gibt nur eine Handvoll Kurse im Jahr, weil jeder einzelne mit echtem Handwerk und Zeit verbunden ist. Wenn gerade nichts Passendes frei ist, geh nicht leer aus: Schreib uns eine kurze Mail — wir schreiben Dich auf unsere Liste und melden uns, bevor die neuen Termine öffentlich werden.</p>
+      <div class="ko-wait__cta">
+        <a href="mailto:info@stolpner-kaesemacherei.de?subject=Warteliste%20K%C3%A4sekurs" class="btn btn--secondary btn--lg">Auf die Warteliste</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 6 · STANDORT / ANFAHRT ===================== -->
+  <section class="ko-map-section">
+    <div class="ko-map-wrap">
+      <div class="ko-map-head">
+        <span class="eyebrow">Anfahrt</span>
+        <h2 class="ko-map-head__title">So findest Du uns</h2>
+        <span class="rule"></span>
+        <p class="ko-map-head__lead">Du findest uns im Vorwerk 10 in Stolpen, mitten in der schönen Umgebung der Sächsischen Schweiz. Von Dresden aus bist Du in gut einer halben Stunde da. Parken kannst Du direkt vor Ort — am Kurstag zeigen wir Dir dann, wo es zum Kessel geht.</p>
+      </div>
+      <div class="ko-map">
+        <iframe
+          class="ko-map__frame"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=14.077622294425964%2C51.048611395095485%2C14.081589281558992%2C51.05048303894048&layer=mapnik&marker=51.049547226472356%2C14.079605787992477"
+          title="Standort der Stolpner Käsemacherei — Vorwerk 10, 01833 Stolpen"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="ko-map-actions">
+        <a
+          href="https://www.google.com/maps/search/?api=1&query=Vorwerk+10,+01833+Stolpen"
+          class="btn btn--secondary btn--md"
+          target="_blank"
+          rel="noopener"
+        >In Google Maps öffnen</a>
+        <a class="ko-map__bigger" href="https://www.openstreetmap.org/?mlat=51.049547&mlon=14.079606#map=19/51.049547/14.079606" target="_blank" rel="noopener">Größere Karte anzeigen</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  /* ---- Gemeinsame Bausteine (seiten-scoped, wie in ueber-uns.astro) ---- */
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .rule {
+    display: block;
+    width: 48px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    margin: 22px auto;
+  }
+
+  /* ---- 1 · Seitenkopf ---- */
+  .ko-head {
+    padding: clamp(52px, 8vw, 84px) clamp(18px, 4vw, 40px) clamp(32px, 5vw, 44px);
+    text-align: center;
+  }
+  .ko-head__inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ko-head__title {
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 46px);
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 14px 0 0;
+    color: var(--color-text);
+  }
+  .ko-head__lead {
+    margin: 0;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+
+  /* ---- 2 · Kontaktkanäle ---- */
+  .ko-channels {
+    padding: 0 clamp(18px, 4vw, 40px) clamp(44px, 6vw, 60px);
+  }
+  .ko-channels__intro {
+    text-align: center;
+    margin: 0 auto 26px;
+    font-size: 14px;
+    letter-spacing: 0.02em;
+    color: var(--text-secondary);
+  }
+  .ko-channels__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 16px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .ko-channel {
+    background: var(--color-bg);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 24px 20px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+  .ko-channel__icon {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    border: 1px solid var(--color-hairline-strong);
+  }
+  .ko-channel__title {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: 18px;
+    margin: 6px 0 0;
+    color: var(--color-text);
+  }
+  .ko-channel__note {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-caption);
+  }
+  .ko-channel__value {
+    font-weight: 600;
+    font-size: 15px;
+  }
+  .ko-channel__value--mail {
+    font-size: 13px;
+    word-break: break-all;
+  }
+  .ko-channel__value--plain {
+    color: var(--color-text);
+  }
+
+  /* ---- 3 · Formular ---- */
+  .ko-form-section {
+    background: var(--color-bg-deep);
+    padding: clamp(48px, 6vw, 72px) clamp(18px, 4vw, 40px);
+  }
+  .ko-form-wrap {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  .ko-form-head {
+    text-align: center;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ko-form-head__title {
+    font-weight: 700;
+    font-size: clamp(26px, 3.4vw, 32px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .ko-form-head__lead {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  .ko-form-card {
+    background: var(--color-bg);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: clamp(22px, 3vw, 30px);
+  }
+  .ko-form {
+    display: flex;
+    flex-direction: column;
+    gap: 17px;
+  }
+  .ko-lab {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin-bottom: 7px;
+  }
+  .ko-in {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px 14px;
+    background: var(--color-bg);
+    border: 1px solid var(--color-hairline-strong);
+    border-radius: var(--radius);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .ko-in:focus {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 3px rgba(232, 178, 74, 0.22);
+  }
+  textarea.ko-in {
+    resize: vertical;
+    min-height: 120px;
+  }
+
+  .ko-consent {
+    display: flex;
+    gap: 11px;
+    align-items: flex-start;
+    font-size: 13px;
+    line-height: 1.5;
+    color: var(--text-secondary);
+  }
+  .ko-consent__box {
+    margin-top: 3px;
+    width: 18px;
+    height: 18px;
+    accent-color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  /* Honeypot — für Menschen unsichtbar */
+  .ko-hp {
+    position: absolute;
+    left: -9999px;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  /* Zustände (Erfolg / Fehler) — standardmäßig ausgeblendet */
+  .ko-alert {
+    display: none;
+    gap: 11px;
+    align-items: flex-start;
+    padding: 13px 16px;
+    border-radius: var(--radius);
+  }
+  .ko-alert.is-visible {
+    display: flex;
+  }
+  .ko-alert :global(.ko-alert__icon) {
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .ko-alert span {
+    font-size: 14px;
+    line-height: 1.45;
+    color: var(--color-text);
+  }
+  .ko-alert--success {
+    background: rgba(110, 127, 78, 0.16);
+    border: 1px solid rgba(110, 127, 78, 0.5);
+  }
+  .ko-alert--success :global(.ko-alert__icon) { color: #9bb06e; }
+  .ko-alert--error {
+    background: rgba(193, 91, 74, 0.16);
+    border: 1px solid rgba(193, 91, 74, 0.5);
+  }
+  .ko-alert--error :global(.ko-alert__icon) { color: #e0836f; }
+
+  /* ---- 4 · Was nach dem Absenden passiert ---- */
+  .ko-after {
+    padding: clamp(48px, 6vw, 72px) clamp(18px, 4vw, 40px);
+  }
+  .ko-after__inner {
+    max-width: 680px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: clamp(18px, 3vw, 26px);
+    align-items: start;
+  }
+  .ko-after__icon {
+    display: inline-flex;
+    width: 52px;
+    height: 52px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    border: 1px solid var(--color-hairline-strong);
+  }
+  .ko-after__title {
+    font-weight: 700;
+    font-size: clamp(22px, 2.8vw, 28px);
+    line-height: 1.15;
+    margin: 0 0 12px;
+    color: var(--color-text);
+  }
+  .ko-after__text {
+    margin: 0;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  /* ---- 5 · Warteliste ---- */
+  .ko-wait {
+    padding: 0 clamp(18px, 4vw, 40px) clamp(48px, 6vw, 72px);
+  }
+  .ko-wait__box {
+    max-width: 820px;
+    margin: 0 auto;
+    background: var(--color-bg-deep);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: clamp(26px, 4vw, 40px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ko-wait__title {
+    font-weight: 700;
+    font-size: clamp(22px, 2.8vw, 28px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .ko-wait__text {
+    margin: 0;
+    max-width: 560px;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+  .ko-wait__cta { margin-top: 26px; }
+
+  /* ---- 6 · Standort / Anfahrt ---- */
+  .ko-map-section {
+    padding: 0 clamp(18px, 4vw, 40px) clamp(56px, 7vw, 88px);
+  }
+  .ko-map-wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .ko-map-head {
+    text-align: center;
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ko-map-head__title {
+    font-weight: 700;
+    font-size: clamp(24px, 3vw, 30px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .ko-map-head__lead {
+    margin: 0;
+    max-width: 600px;
+    font-size: 16px;
+    line-height: 1.6;
+    color: var(--text-secondary);
+  }
+  .ko-map {
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .ko-map__frame {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: 400px;
+    border: 0;
+  }
+  .ko-map-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 22px;
+  }
+  .ko-map__bigger {
+    font-size: 14px;
+    color: var(--text-secondary);
+  }
+
+  @media (max-width: 640px) {
+    .ko-map__frame { height: 300px; }
+    .ko-after__inner {
+      grid-template-columns: 1fr;
+      justify-items: start;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('kontakt-form') as HTMLFormElement | null;
+
+  if (form) {
+    const success = form.querySelector<HTMLElement>('[data-form-success]');
+    const error = form.querySelector<HTMLElement>('[data-form-error]');
+    const replyto = form.querySelector<HTMLInputElement>('input[name="replyto"]');
+    const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
+    const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      success?.classList.remove('is-visible');
+      error?.classList.remove('is-visible');
+
+      // Reply-To auf die eingegebene Absender-Adresse setzen.
+      if (replyto && emailInput) replyto.value = emailInput.value;
+
+      const originalLabel = submitBtn?.textContent ?? '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Wird gesendet …';
+      }
+
+      try {
+        const response = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { Accept: 'application/json' },
+          body: new FormData(form),
+        });
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          success?.classList.add('is-visible');
+          form.reset();
+          success?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        } else {
+          error?.classList.add('is-visible');
+        }
+      } catch {
+        error?.classList.add('is-visible');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = originalLabel;
+        }
+      }
+    });
+  }
+</script>
