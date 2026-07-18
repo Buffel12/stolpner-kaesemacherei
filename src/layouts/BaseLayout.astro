@@ -34,6 +34,9 @@ const { title, description, fullBleed = false } = Astro.props;
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@600;700&family=Roboto:wght@400;600&display=swap"
     />
+
+    <!-- Seitenspezifische Head-Tags (canonical, robots, Open Graph, JSON-LD …) -->
+    <slot name="head" />
   </head>
   <body>
     <Header />

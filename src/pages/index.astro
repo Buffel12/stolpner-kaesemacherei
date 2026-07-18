@@ -3,10 +3,65 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 ---
 <BaseLayout
-  title="Stolpner Käsemacherei — Käsekurse zum Selbermachen in Stolpen"
-  description="Handwerkliche Käsekurse als Erlebnis-Workshop in Stolpen/Sachsen: Stelle deinen eigenen Käse her und nimm ihn mit nach Hause."
+  title="Käse selber machen im Käsekurs | Stolpner Käsemacherei"
+  description="✓ Käse selber machen am echten Kessel: In 4 Std. formst du bei Petra deinen eigenen Laib – über 1.000 Teilnehmer seit 2014. Jetzt Termine ansehen."
   fullBleed
 >
+  <!-- ===================== SEO: seitenspezifische Head-Tags ===================== -->
+  <Fragment slot="head">
+    <link rel="canonical" href="https://stolpner-kaesemacherei.de/" />
+    <meta name="robots" content="index, follow" />
+
+    <!-- Open Graph (Teilen auf Social/Messenger) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Käse selber machen – dein eigener Laib in 4 Stunden" />
+    <meta property="og:description" content="Am echten Kessel bei Petra deinen eigenen Käse machen und mit nach Hause nehmen. Über 1.000 Teilnehmer seit 2014 in Stolpen." />
+    <meta property="og:url" content="https://stolpner-kaesemacherei.de/" />
+    <meta property="og:image" content="https://stolpner-kaesemacherei.de/logo.png" />
+    <meta property="og:site_name" content="Stolpner Käsemacherei" />
+    <meta property="og:locale" content="de_DE" />
+
+    <!-- Twitter/X Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Käse selber machen – dein eigener Laib in 4 Stunden" />
+    <meta name="twitter:description" content="Am echten Kessel bei Petra deinen eigenen Käse machen und mit nach Hause nehmen. Über 1.000 Teilnehmer seit 2014 in Stolpen." />
+    <meta name="twitter:image" content="https://stolpner-kaesemacherei.de/logo.png" />
+
+    <!-- Strukturierte Daten (schema.org / JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "LocalBusiness",
+          "@id": "https://stolpner-kaesemacherei.de/#organization",
+          "name": "Stolpner Käsemacherei",
+          "url": "https://stolpner-kaesemacherei.de/",
+          "logo": { "@type": "ImageObject", "url": "https://stolpner-kaesemacherei.de/logo.png" },
+          "image": "https://stolpner-kaesemacherei.de/logo.png",
+          "telephone": "+49 171 8181435",
+          "email": "info@stolpner-kaesemacherei.de",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Vorwerk 10",
+            "postalCode": "01833",
+            "addressLocality": "Stolpen",
+            "addressRegion": "Sachsen",
+            "addressCountry": "DE"
+          },
+          "sameAs": ["https://www.facebook.com/p/Stolpner-K%C3%A4semacherei-100057760415281/"]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://stolpner-kaesemacherei.de/#website",
+          "url": "https://stolpner-kaesemacherei.de/",
+          "name": "Stolpner Käsemacherei",
+          "publisher": { "@id": "https://stolpner-kaesemacherei.de/#organization" },
+          "inLanguage": "de"
+        }
+      ]
+    })} />
+  </Fragment>
+
   <!-- ===================== 1 · HERO ===================== -->
   <section class="hero">
     <img
