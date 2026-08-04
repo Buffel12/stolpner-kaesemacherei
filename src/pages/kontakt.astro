@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
+import { withBase } from '../lib/url';
 
 // Web3Forms Access Key (Versand-Ziel dieser Seite).
 const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
@@ -99,7 +100,7 @@ const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
 
           <label class="ko-consent">
             <input type="checkbox" name="datenschutz" class="ko-consent__box" required />
-            <span>Ich habe die Informationen zum <a href="/datenschutz">Datenschutz</a> zur Kenntnis genommen. Mit der Nutzung dieses Formulars erkläre ich mich damit einverstanden, dass meine Daten zur Bearbeitung meines Anliegens verwendet und gespeichert werden.</span>
+            <span>Ich habe die Informationen zum <a href={withBase('/datenschutz')}>Datenschutz</a> zur Kenntnis genommen. Mit der Nutzung dieses Formulars erkläre ich mich damit einverstanden, dass meine Daten zur Bearbeitung meines Anliegens verwendet und gespeichert werden.</span>
           </label>
 
           <button type="submit" class="btn btn--primary btn--lg btn--glow btn--block">Nachricht absenden</button>

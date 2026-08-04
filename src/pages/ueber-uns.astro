@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
+import { withBase } from '../lib/url';
 ---
 <BaseLayout
   title="Über uns — Petra & Lutz Gräfe | Stolpner Käsemacherei"
@@ -17,15 +18,15 @@ import Icon from '../components/Icon.astro';
         <span class="rule rule--left"></span>
         <p class="uu-hero__quote">„Wir möchten, dass Du nicht nur guten Käse isst, sondern weißt, wie er entsteht — weil Du ihn selbst gemacht hast."</p>
         <div class="uu-hero__cta">
-          <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+          <a href={withBase('/kurs')} class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
         </div>
       </div>
       <div class="uu-hero__figures">
         <div class="uu-portrait">
-          <img src="/images/petra.jpg" alt="Petra Gräfe, Käsemacherin" />
+          <img src={withBase('/images/petra.jpg')} alt="Petra Gräfe, Käsemacherin" />
         </div>
         <div class="uu-portrait uu-portrait--offset">
-          <img src="/images/lutz.jpeg" alt="Lutz Gräfe mit Käseplatte" />
+          <img src={withBase('/images/lutz.jpeg')} alt="Lutz Gräfe mit Käseplatte" />
         </div>
       </div>
     </div>
@@ -42,7 +43,7 @@ import Icon from '../components/Icon.astro';
       </div>
       <div class="uu-figure">
         <div class="uu-figure__glow" aria-hidden="true"></div>
-        <img src="/images/stolpner_kaesemacherei_transp_1330x1132.png" alt="Petra und Lutz Gräfe im Reifekeller" />
+        <img src={withBase('/images/stolpner_kaesemacherei_transp_1330x1132.png')} alt="Petra und Lutz Gräfe im Reifekeller" />
       </div>
     </div>
   </section>
@@ -205,10 +206,10 @@ import Icon from '../components/Icon.astro';
       <span class="rule"></span>
       <p class="uu-final__text">Es gibt nur wenige Termine im Jahr, und jede Runde ist auf 14 Plätze begrenzt. Wenn Du Lust hast, Deinen eigenen Käse zu machen, sichere Dir jetzt Deinen Platz.</p>
       <div class="btn-row">
-        <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
-        <a href="/gutscheine" class="btn btn--secondary btn--lg">Gutschein verschenken</a>
+        <a href={withBase('/kurs')} class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+        <a href={withBase('/gutscheine')} class="btn btn--secondary btn--lg">Gutschein verschenken</a>
       </div>
-      <p class="uu-final__note">Kein passender Termin dabei oder als Geschenk gedacht? <a href="/gutscheine">Verschenk den Käse-Abend als Gutschein.</a></p>
+      <p class="uu-final__note">Kein passender Termin dabei oder als Geschenk gedacht? <a href={withBase('/gutscheine')}>Verschenk den Käse-Abend als Gutschein.</a></p>
     </div>
   </section>
 </BaseLayout>

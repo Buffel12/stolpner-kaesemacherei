@@ -1,8 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
-
-const base = import.meta.env.BASE_URL;
+import { withBase } from '../lib/url';
 ---
 <BaseLayout
   title="Käse selber machen im Käsekurs | Stolpner Käsemacherei"
@@ -68,7 +67,7 @@ const base = import.meta.env.BASE_URL;
   <section class="hero">
     <img
       class="hero__bg"
-      src="/images/header-hintergrund.jpg"
+      src={withBase('/images/header-hintergrund.jpg')}
       alt="Handwerkszeug und Kupferkessel der Stolpner Käsemacherei"
     />
     <div class="hero__overlay" aria-hidden="true"></div>
@@ -78,8 +77,8 @@ const base = import.meta.env.BASE_URL;
       <span class="rule"></span>
       <p class="hero__lead">In vier Stunden am echten Kessel machst Du Deinen eigenen Käse und pflegst ihn zu Hause noch rund drei Wochen bis zur vollen Reife.</p>
       <div class="btn-row">
-        <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
-        <a href="/gutscheine" class="btn btn--secondary btn--lg">Gutschein verschenken</a>
+        <a href={withBase('/kurs')} class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+        <a href={withBase('/gutscheine')} class="btn btn--secondary btn--lg">Gutschein verschenken</a>
       </div>
     </div>
   </section>
@@ -135,7 +134,7 @@ const base = import.meta.env.BASE_URL;
       </div>
     </div>
     <div class="section__cta">
-      <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+      <a href={withBase('/kurs')} class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
     </div>
   </section>
 
@@ -144,14 +143,14 @@ const base = import.meta.env.BASE_URL;
     <div class="feature-grid">
       <div class="feature">
         <div class="feature__media">
-          <img src="/images/teilnehmer-am-kessel.jpeg" alt="Teilnehmerin hält lachend ihren eigenen frischen Käse am Kessel" class="feature__img--center" />
+          <img src={withBase('/images/teilnehmer-am-kessel.jpeg')} alt="Teilnehmerin hält lachend ihren eigenen frischen Käse am Kessel" class="feature__img--center" />
         </div>
         <h3 class="feature__title">Du musst nichts können — außer Lust auf echten Käse</h3>
         <p class="feature__text">Viele stehen anfangs etwas unsicher am Kessel. Petra bleibt an Deiner Seite und sagt Dir bei jedem Schritt genau, was zu tun ist — ganz gleich, wie oft es zu Hause schon schiefging. Am Ende hältst Du Deinen eigenen Laib in der Hand und denkst: das habe ich wirklich selbst gemacht.</p>
       </div>
       <div class="feature">
         <div class="feature__media">
-          <img src="/images/petra-am-kupferkessel.jpg" alt="Petra zeigt am Kupferkessel, wie Käse entsteht" />
+          <img src={withBase('/images/petra-am-kupferkessel.jpg')} alt="Petra zeigt am Kupferkessel, wie Käse entsteht" />
         </div>
         <h3 class="feature__title">Eine echte Käsemacherin mit Alp-Erfahrung an Deiner Seite</h3>
         <p class="feature__text">Petra Gräfe stellt seit über zehn Jahren selbst Käse her und hat ihr Handwerk über mehrere Sommer auf einer Schweizer Alp gelernt. Du lernst die Methode einer Frau, die das Käsen immer aufs Neue in der Praxis anwendet — das siehst und schmeckst Du an Deinem eigenen Laib.</p>
@@ -164,7 +163,7 @@ const base = import.meta.env.BASE_URL;
     <div class="petra__grid">
       <div class="petra__figure">
         <div class="petra__glow" aria-hidden="true"></div>
-        <img src="/images/stolpner_kaesemacherei_transp_1330x1132.png" alt="Petra Gräfe, Käsemacherin in Stolpen" />
+        <img src={withBase('/images/stolpner_kaesemacherei_transp_1330x1132.png')} alt="Petra Gräfe, Käsemacherin in Stolpen" />
       </div>
       <div class="petra__body">
         <span class="eyebrow">Deine Käsemacherin Petra · Wie alles begann</span>
@@ -173,7 +172,7 @@ const base = import.meta.env.BASE_URL;
         <p>Auf der Alm verarbeitete der Bauer seine Milch ganz traditionell im großen Kupferkessel — dieses Handwerk hat mich sofort angesteckt. Da war die Idee geboren.</p>
         <p>Erst wer selbst erlebt, wie viel Milch und wie viel gefühlvolle Arbeit in einem einzigen Laib stecken, bekommt ein echtes Gespür für Qualität. Diesen Moment gebe ich weiter. Heute, über zehn Jahre und mehr als 1.000 Teilnehmer später, stehe ich in Stolpen mit Menschen wie Dir am Kessel und zeige jeden Handgriff.</p>
         <div class="petra__cta">
-          <a href="/ueber-uns" class="btn btn--secondary btn--md">Mehr über Petra</a>
+          <a href={withBase('/ueber-uns')} class="btn btn--secondary btn--md">Mehr über Petra</a>
         </div>
       </div>
     </div>
@@ -206,9 +205,9 @@ const base = import.meta.env.BASE_URL;
     </div>
 
     <div class="gallery">
-      <div class="gallery__cell"><img src="/images/teilnehmer-mit-eigenen-kaese.jpeg" alt="Teilnehmer mit seinem selbstgemachten Frischkäse und einer Käse-Etagere" /></div>
-      <div class="gallery__cell"><img src="/images/teilnehmer-mit-eigenen-kaese-3.jpeg" alt="Käsemacherin mit selbstgemachtem Käse und einer Käseglocke voller Spezialitäten" /></div>
-      <div class="gallery__cell"><img src="/images/teilnehmer-mit-eigenen-kaese-2.jpeg" alt="Teilnehmerin mit ihrem selbstgemachten Käse und einer Käseglocke voller Spezialitäten" /></div>
+      <div class="gallery__cell"><img src={withBase('/images/teilnehmer-mit-eigenen-kaese.jpeg')} alt="Teilnehmer mit seinem selbstgemachten Frischkäse und einer Käse-Etagere" /></div>
+      <div class="gallery__cell"><img src={withBase('/images/teilnehmer-mit-eigenen-kaese-3.jpeg')} alt="Käsemacherin mit selbstgemachtem Käse und einer Käseglocke voller Spezialitäten" /></div>
+      <div class="gallery__cell"><img src={withBase('/images/teilnehmer-mit-eigenen-kaese-2.jpeg')} alt="Teilnehmerin mit ihrem selbstgemachten Käse und einer Käseglocke voller Spezialitäten" /></div>
     </div>
     <p class="gallery__caption">Das nehmen unsere Gäste mit nach Hause: den eigenen Käse und ein Lächeln dazu.</p>
 
@@ -222,10 +221,10 @@ const base = import.meta.env.BASE_URL;
       <span class="rule"></span>
       <p class="final-cta__text">Es gibt nur wenige Termine im Jahr, jede Runde ist auf 14 Plätze begrenzt. Wenn Du in ein paar Wochen Deinen eigenen, selbst gereiften Laib anschneiden willst, sicher Dir jetzt Deinen Platz.</p>
       <div class="btn-row">
-        <a href="/kurs" class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
-        <a href="/gutscheine" class="btn btn--secondary btn--lg">Gutschein verschenken</a>
+        <a href={withBase('/kurs')} class="btn btn--primary btn--lg btn--glow">Termin buchen</a>
+        <a href={withBase('/gutscheine')} class="btn btn--secondary btn--lg">Gutschein verschenken</a>
       </div>
-      <p class="final-cta__note">Kein passender Termin dabei? Neue Termine folgen — schau bald wieder vorbei oder <a href="/kontakt">schreib uns kurz</a>.</p>
+      <p class="final-cta__note">Kein passender Termin dabei? Neue Termine folgen — schau bald wieder vorbei oder <a href={withBase('/kontakt')}>schreib uns kurz</a>.</p>
     </div>
   </section>
 </BaseLayout>

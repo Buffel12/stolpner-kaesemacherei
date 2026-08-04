@@ -2,18 +2,19 @@
 // Header.astro — wiederverwendbarer, sticky Header (zentriertes Layout, „1b").
 // Logo + zentrierte Navigation + Haupt-CTA. Auf Mobil: Hamburger-Menü.
 import Icon from './Icon.astro';
+import { withBase } from '../lib/url';
 
 // Geplante Routen aus der Website-Architektur.
 const navLinks = [
-  { href: '/kurs', label: 'Kurs & Termine' },
-  { href: '/gutscheine', label: 'Gutscheine' },
-  { href: '/kaesekessi', label: 'Mobiler Käsekessi' },
-  { href: '/ueber-uns', label: 'Über uns' },
-  { href: '/kontakt', label: 'Kontakt' },
+  { href: withBase('/kurs'), label: 'Kurs & Termine' },
+  { href: withBase('/gutscheine'), label: 'Gutscheine' },
+  { href: withBase('/kaesekessi'), label: 'Mobiler Käsekessi' },
+  { href: withBase('/ueber-uns'), label: 'Über uns' },
+  { href: withBase('/kontakt'), label: 'Kontakt' },
 ];
 
 // Haupt-CTA → Buchungslink (Platzhalter: Kurs-/Termin-Seite).
-const bookingUrl = '/kurs';
+const bookingUrl = withBase('/kurs');
 
 // Aktuellen Pfad ermitteln (ohne abschließenden Slash), um den
 // aktiven Menüpunkt zu markieren.
@@ -26,8 +27,8 @@ const isActive = (href: string) => {
 
 <header class="site-header" id="top">
   <div class="site-header__inner">
-    <a href="/" class="site-header__logo" aria-label="Zur Startseite — Stolpner Käsemacherei">
-      <img src="/logo_3D_m.png" alt="Stolpner Käsemacherei" />
+    <a href={withBase('/')} class="site-header__logo" aria-label="Zur Startseite — Stolpner Käsemacherei">
+      <img src={withBase('/logo_3D_m.png')} alt="Stolpner Käsemacherei" />
     </a>
 
     <button

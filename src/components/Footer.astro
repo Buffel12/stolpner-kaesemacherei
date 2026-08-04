@@ -1,27 +1,28 @@
 ---
 // Footer.astro — wiederverwendbarer Footer (aus dem gelieferten Design).
 import Icon from './Icon.astro';
+import { withBase } from '../lib/url';
 
 const navLinks = [
-  { href: '/kurs', label: 'Kurs & Termine' },
-  { href: '/gutscheine', label: 'Gutscheine' },
-  { href: '/kaesekessi', label: 'Mobiler Käsekessi' },
-  { href: '/ueber-uns', label: 'Über uns' },
-  { href: '/kontakt', label: 'Kontakt' },
+  { href: withBase('/kurs'), label: 'Kurs & Termine' },
+  { href: withBase('/gutscheine'), label: 'Gutscheine' },
+  { href: withBase('/kaesekessi'), label: 'Mobiler Käsekessi' },
+  { href: withBase('/ueber-uns'), label: 'Über uns' },
+  { href: withBase('/kontakt'), label: 'Kontakt' },
 ];
 
 const legalLinks = [
-  { href: '/impressum', label: 'Impressum' },
-  { href: '/datenschutz', label: 'Datenschutz' },
-  { href: '/agb', label: 'AGB' },
-  { href: '/widerruf', label: 'Widerruf' },
+  { href: withBase('/impressum'), label: 'Impressum' },
+  { href: withBase('/datenschutz'), label: 'Datenschutz' },
+  { href: withBase('/agb'), label: 'AGB' },
+  { href: withBase('/widerruf'), label: 'Widerruf' },
 ];
 ---
 
 <footer class="site-footer">
   <div class="site-footer__grid">
     <div class="site-footer__brand">
-      <img src="/logo_3D_m.png" alt="Stolpner Käsemacherei" class="site-footer__logo" />
+      <img src={withBase('/logo_3D_m.png')} alt="Stolpner Käsemacherei" class="site-footer__logo" />
       <p class="site-footer__tagline">Echtes Käsehandwerk zum Selbermachen in Stolpen.</p>
       <p class="site-footer__address">
         <Icon name="map-pin" size={16} class="ic-accent" /> Vorwerk 10, 01833 Stolpen
