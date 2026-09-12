@@ -12,21 +12,24 @@ Neue Datei nach dem Muster `JAHR-MONAT-TAG-kaesekurs.md` (z. B.
 ---
 titel: Käsekurs am Kessel
 datum: 2027-03-14
-startzeit: "10:00"
+startzeit: "18:00"
 dauerStunden: 4
 preis: 69
 plaetze: 14
-status: frei
+frei: 14
 ---
 ```
 
-## Freie Plätze steuern (`status`)
-- `frei`       → normal buchbar (grüne Markierung)
-- `wenige`     → nur noch wenige Plätze frei (gelbe Markierung)
-- `ausgebucht` → nicht mehr buchbar, „Anmelden"-Button ist deaktiviert
+## Freie Plätze pflegen (`frei`)
+Du pflegst **nur eine Zahl**: `frei` = wie viele Plätze noch frei sind. Alles
+andere (Badge-Text, „ausgebucht", Button) leitet sich automatisch daraus ab:
 
-Wird ein Kurs voll, einfach `status:` auf `ausgebucht` ändern.
+- `frei: 0`        → **Ausgebucht** (grau, „Anmelden"-Button deaktiviert)
+- `frei: 1`–`3`    → **„Nur noch X Plätze frei"** (gelbe Markierung)
+- `frei: 4` +      → **„X Plätze frei"** (grüne Markierung)
 
-> Die drei aktuell vorhandenen Dateien sind **Beispieltermine** und sollten
-> durch echte Termine ersetzt werden. `README.md` selbst wird nicht als Termin
+Kommt eine Buchung rein, einfach `frei` um die Personenzahl verringern.
+
+> Die aktuell vorhandenen 2027er-Termine stammen von der alten Website und
+> sollten aktuell gehalten werden. `README.md` selbst wird nicht als Termin
 > angezeigt.

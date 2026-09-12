@@ -20,11 +20,12 @@ const kurse = defineCollection({
     preis: z.number().default(69),
     /** Maximale Teilnehmerzahl. */
     plaetze: z.number().default(14),
-    /** Freie-Plätze-Status — wird von Hand gepflegt:
-     *  'frei'      → normal buchbar
-     *  'wenige'    → nur noch wenige Plätze (gelbe Markierung)
-     *  'ausgebucht'→ nicht mehr buchbar (Button deaktiviert) */
-    status: z.enum(['frei', 'wenige', 'ausgebucht']).default('frei'),
+    /** Anzahl der noch freien Plätze — das einzige, was von Hand gepflegt wird.
+     *  Daraus wird automatisch abgeleitet:
+     *  frei = 0        → ausgebucht (Button deaktiviert)
+     *  frei = 1 bis 3  → „nur noch wenige Plätze" (gelbe Markierung)
+     *  frei > 3        → normal buchbar (grüne Markierung) */
+    frei: z.number().default(14),
     /** Optionaler Zusatzhinweis, z. B. "Sonderkurs mit Räuchern". */
     hinweis: z.string().optional(),
   }),

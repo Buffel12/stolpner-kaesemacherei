@@ -23,13 +23,20 @@ const kurzDatum = new Intl.DateTimeFormat('de-DE', { weekday: 'short', day: '2-d
 const terminLabel = (k: (typeof termine)[number]) =>
   `${k.data.titel} — ${kurzDatum.format(k.data.datum)}, ${k.data.startzeit} Uhr`;
 
-const statusText: Record<string, string> = {
-  frei: 'Plätze frei',
-  wenige: 'Nur noch wenige Plätze',
-  ausgebucht: 'Ausgebucht',
+// Status + Badge-Text werden aus der Anzahl freier Plätze abgeleitet.
+type Kurs = (typeof termine)[number];
+const istVoll = (k: Kurs) => k.data.frei <= 0;
+const istKnapp = (k: Kurs) => k.data.frei > 0 && k.data.frei <= 3;
+const statusKey = (k: Kurs) => (istVoll(k) ? 'ausgebucht' : istKnapp(k) ? 'wenige' : 'frei');
+const platzWort = (n: number) => (n === 1 ? 'Platz' : 'Plätze');
+const platzText = (k: Kurs) => {
+  if (istVoll(k)) return 'Ausgebucht';
+  return istKnapp(k)
+    ? `Nur noch ${k.data.frei} ${platzWort(k.data.frei)} frei`
+    : `${k.data.frei} ${platzWort(k.data.frei)} frei`;
 };
 
-const buchbareTermine = termine.filter((k) => k.data.status !== 'ausgebucht');
+const buchbareTermine = termine.filter((k) => !istVoll(k));
 ---
 <BaseLayout
   title="Käsekurs & Termine — Stolpner Käsemacherei"
@@ -119,7 +126,7 @@ const buchbareTermine = termine.filter((k) => k.data.status !== 'ausgebucht');
     {termine.length > 0 ? (
       <ul class="ku-list">
         {termine.map((k) => (
-          <li class:list={['ku-card', { 'ku-card--voll': k.data.status === 'ausgebucht' }]}>
+          <li class:list={['ku-card', { 'ku-card--voll': istVoll(k) }]}>
             <div class="ku-card__date">
               <span class="ku-card__weekday">{wochentag.format(k.data.datum)}</span>
               <span class="ku-card__day">{langesDatum.format(k.data.datum)}</span>
@@ -130,8 +137,8 @@ const buchbareTermine = termine.filter((k) => k.data.status !== 'ausgebucht');
               {k.data.hinweis && <span class="ku-card__hint">{k.data.hinweis}</span>}
             </div>
             <div class="ku-card__action">
-              <span class:list={['ku-badge', `ku-badge--${k.data.status}`]}>{statusText[k.data.status]}</span>
-              {k.data.status === 'ausgebucht' ? (
+              <span class:list={['ku-badge', `ku-badge--${statusKey(k)}`]}>{platzText(k)}</span>
+              {istVoll(k) ? (
                 <button type="button" class="btn btn--ghost btn--md" disabled>Ausgebucht</button>
               ) : (
                 <button type="button" class="btn btn--primary btn--md ku-book" data-termin={terminLabel(k)}>Anmelden</button>
@@ -174,7 +181,7 @@ const buchbareTermine = termine.filter((k) => k.data.status !== 'ausgebucht');
               <select id="a-termin" name="Kurstermin" class="ku-in" required>
                 <option value="">Bitte Termin wählen …</option>
                 {buchbareTermine.map((k) => (
-                  <option value={terminLabel(k)}>{kurzDatum.format(k.data.datum)}, {k.data.startzeit} Uhr{k.data.status === 'wenige' ? ' — nur noch wenige Plätze' : ''}</option>
+                  <option value={terminLabel(k)}>{kurzDatum.format(k.data.datum)}, {k.data.startzeit} Uhr — noch {k.data.frei} {platzWort(k.data.frei)} frei</option>
                 ))}
               </select>
             </div>

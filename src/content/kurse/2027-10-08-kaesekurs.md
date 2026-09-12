@@ -5,5 +5,5 @@ startzeit: "18:00"
 dauerStunden: 2
 preis: 69
 plaetze: 14
-status: frei
+frei: 10
 ---
