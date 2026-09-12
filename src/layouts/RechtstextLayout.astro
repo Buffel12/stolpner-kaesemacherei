@@ -1,0 +1,94 @@
+---
+// RechtstextLayout.astro — einheitliches Layout für Rechtstexte
+// (Impressum, Datenschutz, AGB, Widerruf). Schmale, gut lesbare Textspalte.
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  heading: string;
+  stand?: string; // z. B. "September 2026"
+}
+const { title, description, heading, stand } = Astro.props;
+---
+<BaseLayout title={title} description={description} fullBleed>
+  <Fragment slot="head">
+    <meta name="robots" content="noindex, follow" />
+  </Fragment>
+
+  <section class="rt">
+    <div class="rt__inner">
+      <span class="rt__eyebrow">Rechtliches</span>
+      <h1 class="rt__title">{heading}</h1>
+      {stand && <p class="rt__stand">Stand: {stand}</p>}
+      <div class="rt__prose">
+        <slot />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .rt {
+    padding: clamp(48px, 7vw, 80px) clamp(18px, 4vw, 40px) clamp(56px, 7vw, 88px);
+  }
+  .rt__inner {
+    max-width: 760px;
+    margin: 0 auto;
+  }
+  .rt__eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .rt__title {
+    font-weight: 700;
+    font-size: clamp(30px, 4.4vw, 42px);
+    line-height: 1.12;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .rt__stand {
+    margin: 10px 0 0;
+    font-size: 14px;
+    color: var(--text-caption);
+  }
+  .rt__prose {
+    margin-top: clamp(28px, 4vw, 40px);
+    font-size: 16px;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+  .rt__prose :global(h2) {
+    font-size: clamp(20px, 2.6vw, 25px);
+    color: var(--color-text);
+    margin: 2em 0 0.5em;
+  }
+  .rt__prose :global(h3) {
+    font-size: clamp(17px, 2vw, 19px);
+    color: var(--color-text);
+    margin: 1.6em 0 0.4em;
+  }
+  .rt__prose :global(p) { margin: 0 0 1em; }
+  .rt__prose :global(ul) { margin: 0 0 1em; padding-left: 1.3em; }
+  .rt__prose :global(li) { margin-bottom: 0.4em; }
+  .rt__prose :global(strong) { color: var(--color-text); }
+  .rt__prose :global(a) { color: var(--color-primary); }
+  .rt__prose :global(a:hover) { color: var(--color-accent); }
+  .rt__prose :global(address) {
+    font-style: normal;
+    line-height: 1.7;
+    margin: 0 0 1em;
+  }
+  .rt__prose :global(.rt-note) {
+    background: var(--color-accent-soft);
+    border: 1px solid var(--color-hairline-strong);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    font-size: 14px;
+    color: var(--color-text);
+    margin: 1.5em 0;
+  }
+</style>
