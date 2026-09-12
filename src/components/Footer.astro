@@ -55,6 +55,7 @@ const legalLinks = [
     {legalLinks.map((link) => (
       <a href={link.href} class="foot-link">{link.label}</a>
     ))}
+    <p class="site-footer__credit">Design &amp; Entwicklung: <a href="https://unitednet-design.com" target="_blank" rel="noopener">UnitedNet Design</a></p>
   </div>
 </footer>
 
@@ -120,4 +121,15 @@ const legalLinks = [
     font-size: 13px;
     color: var(--text-caption);
   }
+
+  /* Design-Credit — eigene, zentrierte Zeile unter Copyright & Rechtslinks */
+  .site-footer__credit {
+    flex-basis: 100%;
+    margin: 4px 0 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--text-caption);
+  }
+  .site-footer__credit a { color: var(--text-secondary); }
+  .site-footer__credit a:hover { color: var(--color-primary); }
 </style>
