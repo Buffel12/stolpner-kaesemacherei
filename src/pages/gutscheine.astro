@@ -1,10 +1,341 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Icon from '../components/Icon.astro';
 ---
 <BaseLayout
   title="Gutscheine verschenken — Stolpner Käsemacherei"
-  description="Verschenke ein Käse-Erlebnis: Gutscheine für den handwerklichen Käsekurs in Stolpen – das besondere Geschenk zum Selbermachen."
+  description="Verschenke ein Käse-Erlebnis: Ein Gutschein für den handwerklichen Käsekurs in Stolpen. Vier Stunden am Kessel bei Petra, mit eigenem Laib zum Mitnehmen."
+  fullBleed
 >
-  <h1>Gutscheine</h1>
-  <!-- Inhalt folgt aus Claude Design -->
+  <Fragment slot="head">
+    <link rel="canonical" href="https://stolpner-kaesemacherei.de/gutscheine" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Gutscheine — Stolpner Käsemacherei" />
+    <meta property="og:description" content="Verschenke einen Tag am Käsekessel: Gutschein für den Käsekurs bei Petra in Stolpen." />
+    <meta property="og:url" content="https://stolpner-kaesemacherei.de/gutscheine" />
+    <meta property="og:image" content="https://stolpner-kaesemacherei.de/logo.png" />
+    <meta property="og:site_name" content="Stolpner Käsemacherei" />
+    <meta property="og:locale" content="de_DE" />
+  </Fragment>
+
+  <!-- ===================== 1 · HERO (Split) ===================== -->
+  <section class="gu-hero">
+    <div class="gu-hero__text">
+      <span class="eyebrow">Gutscheine</span>
+      <h1 class="gu-hero__title">Verschenke einen Tag am Käsekessel</h1>
+      <span class="rule rule--left"></span>
+      <p class="gu-hero__lead">Ein Gutschein für den Käsekurs bei Petra: vier Stunden Handwerk und ein eigener Laib zum Mitnehmen. Ein Geschenk, das bleibt.</p>
+      <div class="gu-hero__cta">
+        <a href="/kontakt#formular" class="btn btn--primary btn--lg btn--glow">Gutschein anfragen</a>
+        <a href="/kurs" class="btn btn--secondary btn--lg">Kurs ansehen</a>
+      </div>
+    </div>
+    <div class="gu-hero__media">
+      <img src="/images/teilnehmer-mit-eigenen-kaese.jpeg" alt="Teilnehmerin hält lachend ihren selbstgemachten Käse in den Händen" />
+    </div>
+  </section>
+
+  <!-- ===================== 2 · SO FUNKTIONIERT'S ===================== -->
+  <section class="gu-how">
+    <div class="gu-how__head">
+      <h2 class="gu-how__title">So funktioniert's</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="gu-how__grid">
+      <div class="gu-step">
+        <span class="gu-step__num">1</span>
+        <h3 class="gu-step__title">Anfragen</h3>
+        <p class="gu-step__text">Sag uns per Formular oder Anruf, für wen und für wie viele Personen der Gutschein sein soll.</p>
+      </div>
+      <div class="gu-step">
+        <span class="gu-step__num">2</span>
+        <h3 class="gu-step__title">Gutschein erhalten</h3>
+        <p class="gu-step__text">Du bekommst einen persönlichen Gutschein zum Verschenken. Bezahlt wird in bar, wie beim Kurs selbst.</p>
+      </div>
+      <div class="gu-step">
+        <span class="gu-step__num">3</span>
+        <h3 class="gu-step__title">Termin aussuchen</h3>
+        <p class="gu-step__text">Die beschenkte Person sucht sich einen der Jahrestermine aus und kommt nach Stolpen an den Kessel.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3 · DAS STECKT DRIN (Bild + Checkliste) ===================== -->
+  <section class="gu-incl">
+    <div class="gu-incl__media">
+      <img src="/images/petra-am-kupferkessel.jpg" alt="Petra zeigt am Kupferkessel, wie handwerklicher Käse entsteht" />
+    </div>
+    <div class="gu-incl__body">
+      <span class="eyebrow">Das steckt drin</span>
+      <h2 class="gu-incl__title">Ein ganzes Käse-Erlebnis, kein Stück Papier</h2>
+      <ul class="gu-incl__list">
+        <li><Icon name="check-circle" size={19} class="ic-accent" /> Vier Stunden am echten Kupferkessel, persönlich angeleitet von Petra</li>
+        <li><Icon name="check-circle" size={19} class="ic-accent" /> Verkostung verschiedener Sorten, dazu frisches Brot und ein Glas Wein</li>
+        <li><Icon name="check-circle" size={19} class="ic-accent" /> Der eigene Käse-Rohling zum Mitnehmen, plus Reife-Anleitung für zu Hause</li>
+        <li><Icon name="check-circle" size={19} class="ic-accent" /> Einlösbar für jeden ausgeschriebenen Kurstermin</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ===================== 4 · GUT ZU WISSEN ===================== -->
+  <section class="gu-know">
+    <div class="gu-know__head">
+      <h2 class="gu-know__title">Gut zu wissen</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="gu-know__grid">
+      <div class="gu-note">
+        <span class="gu-note__icon"><Icon name="calendar" size={20} class="ic-accent" /></span>
+        <h3 class="gu-note__title">Drei Jahre gültig</h3>
+        <p class="gu-note__text">Zeit genug, den passenden Termin zu finden. Der Gutschein gilt ab Ausstellung drei Jahre.</p>
+      </div>
+      <div class="gu-note">
+        <span class="gu-note__icon"><Icon name="heart" size={20} class="ic-accent" /></span>
+        <h3 class="gu-note__title">Übertragbar</h3>
+        <p class="gu-note__text">Wer selbst nicht kann, gibt den Gutschein einfach weiter. Er ist nicht an eine Person gebunden.</p>
+      </div>
+      <div class="gu-note">
+        <span class="gu-note__icon"><Icon name="sparkles" size={20} class="ic-accent" /></span>
+        <h3 class="gu-note__title">Zahlung in bar</h3>
+        <p class="gu-note__text">Wie der Kurs wird auch der Gutschein in bar bezahlt. Eine Auszahlung des Werts ist nicht möglich.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 5 · ABSCHLUSS-CTA ===================== -->
+  <section class="gu-cta">
+    <div class="gu-cta__box">
+      <span class="gu-cta__icon"><Icon name="gift" size={26} class="ic-accent" /></span>
+      <h2 class="gu-cta__title">Bereit, Freude zu verschenken?</h2>
+      <span class="rule"></span>
+      <p class="gu-cta__text">Schreib uns kurz, für wen der Gutschein sein soll. Wir melden uns schnell und machen den Rest ganz unkompliziert.</p>
+      <div class="gu-cta__actions">
+        <a href="/kontakt#formular" class="btn btn--primary btn--lg btn--glow">Gutschein anfragen</a>
+        <a href="tel:+491718181435" class="btn btn--secondary btn--lg">0171 818 1435</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
+
+<style>
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-primary);
+    font-weight: 600;
+  }
+  .rule {
+    display: block;
+    width: 48px;
+    height: 3px;
+    border-radius: 999px;
+    background: var(--color-primary);
+    margin: 22px auto;
+  }
+  .rule--left { margin-left: 0; margin-right: 0; }
+
+  /* ---- 1 · Split-Hero ---- */
+  .gu-hero {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: clamp(44px, 7vw, 84px) clamp(18px, 4vw, 40px) clamp(40px, 6vw, 64px);
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+  }
+  .gu-hero__text { display: flex; flex-direction: column; align-items: flex-start; }
+  .gu-hero__title {
+    font-weight: 700;
+    font-size: clamp(32px, 5vw, 50px);
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin: 14px 0 0;
+    color: var(--color-text);
+  }
+  .gu-hero__lead {
+    margin: 0;
+    font-size: clamp(17px, 2vw, 20px);
+    line-height: 1.55;
+    color: var(--text-secondary);
+    max-width: 46ch;
+  }
+  .gu-hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+  .gu-hero__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 4 / 5;
+  }
+  .gu-hero__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+  /* ---- 2 · So funktioniert's ---- */
+  .gu-how {
+    background: var(--color-bg-deep);
+    padding: clamp(48px, 6vw, 72px) clamp(18px, 4vw, 40px);
+  }
+  .gu-how__head {
+    text-align: center;
+    margin: 0 auto 36px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .gu-how__title {
+    font-weight: 700;
+    font-size: clamp(26px, 3.4vw, 33px);
+    margin: 0;
+    color: var(--color-text);
+  }
+  .gu-how__grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+  }
+  .gu-step {
+    background: var(--color-bg);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: clamp(24px, 3vw, 30px);
+  }
+  .gu-step__num {
+    display: inline-flex;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--cta);
+    color: var(--color-on-accent);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 14px;
+  }
+  .gu-step__title { font-weight: 600; font-size: 20px; margin: 0 0 8px; color: var(--color-text); }
+  .gu-step__text { margin: 0; font-size: 15px; line-height: 1.6; color: var(--text-secondary); }
+
+  /* ---- 3 · Das steckt drin (Bild + Liste) ---- */
+  .gu-incl {
+    max-width: 1120px;
+    margin: 0 auto;
+    padding: clamp(48px, 6vw, 76px) clamp(18px, 4vw, 40px);
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: clamp(28px, 5vw, 56px);
+    align-items: center;
+  }
+  .gu-incl__media {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow-lg);
+    aspect-ratio: 4 / 3;
+  }
+  .gu-incl__media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gu-incl__title {
+    font-weight: 700;
+    font-size: clamp(24px, 3.2vw, 31px);
+    line-height: 1.15;
+    margin: 12px 0 18px;
+    color: var(--color-text);
+  }
+  .gu-incl__list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+  .gu-incl__list li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: start;
+    font-size: 16px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
+  .gu-incl__list :global(svg) { margin-top: 2px; }
+
+  /* ---- 4 · Gut zu wissen ---- */
+  .gu-know {
+    background: var(--color-bg-deep);
+    padding: clamp(48px, 6vw, 72px) clamp(18px, 4vw, 40px);
+  }
+  .gu-know__head {
+    text-align: center;
+    margin: 0 auto 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .gu-know__title { font-weight: 700; font-size: clamp(24px, 3vw, 30px); margin: 0; color: var(--color-text); }
+  .gu-know__grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .gu-note {
+    background: var(--color-bg);
+    border: 1px solid var(--color-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 24px 22px;
+  }
+  .gu-note__icon {
+    display: inline-flex;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    border: 1px solid var(--color-hairline-strong);
+    margin-bottom: 12px;
+  }
+  .gu-note__title { font-weight: 600; font-size: 18px; margin: 0 0 6px; color: var(--color-text); }
+  .gu-note__text { margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--text-secondary); }
+
+  /* ---- 5 · Abschluss-CTA ---- */
+  .gu-cta {
+    padding: clamp(48px, 6vw, 76px) clamp(18px, 4vw, 40px) clamp(56px, 7vw, 88px);
+  }
+  .gu-cta__box {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--surface-card);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    padding: clamp(30px, 4vw, 48px);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .gu-cta__icon {
+    display: inline-flex;
+    width: 56px;
+    height: 56px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    border: 1px solid var(--color-hairline-strong);
+    margin-bottom: 6px;
+  }
+  .gu-cta__title { font-weight: 700; font-size: clamp(24px, 3vw, 31px); margin: 14px 0 0; color: var(--color-text); }
+  .gu-cta__text { margin: 0; max-width: 520px; font-size: 16px; line-height: 1.6; color: var(--text-secondary); }
+  .gu-cta__actions { margin-top: 26px; display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+
+  /* ---- Mobile ---- */
+  @media (max-width: 860px) {
+    .gu-hero { grid-template-columns: 1fr; }
+    .gu-hero__media { aspect-ratio: 16 / 10; order: -1; }
+    .gu-incl { grid-template-columns: 1fr; }
+    .gu-incl__media { aspect-ratio: 16 / 10; }
+  }
+</style>
