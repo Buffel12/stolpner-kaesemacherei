@@ -151,13 +151,21 @@ const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
         <span class="rule"></span>
         <p class="ko-map-head__lead">Du findest uns im Vorwerk 10 in Stolpen, mitten in der schönen Umgebung der Sächsischen Schweiz. Von Dresden aus bist Du in gut einer halben Stunde da. Parken kannst Du direkt vor Ort — am Kurstag zeigen wir Dir dann, wo es zum Kessel geht.</p>
       </div>
-      <div class="ko-map">
-        <iframe
-          class="ko-map__frame"
-          src="https://www.openstreetmap.org/export/embed.html?bbox=14.077622294425964%2C51.048611395095485%2C14.081589281558992%2C51.05048303894048&layer=mapnik&marker=51.049547226472356%2C14.079605787992477"
-          title="Standort der Stolpner Käsemacherei — Vorwerk 10, 01833 Stolpen"
-          loading="lazy"
-        ></iframe>
+      <div
+        class="ko-map"
+        id="ko-map"
+        data-map-src="https://www.openstreetmap.org/export/embed.html?bbox=14.077622294425964%2C51.048611395095485%2C14.081589281558992%2C51.05048303894048&layer=mapnik&marker=51.049547226472356%2C14.079605787992477"
+      >
+        <!-- Karte lädt erst nach Klick (kein automatischer Datenabfluss an OpenStreetMap). -->
+        <div class="ko-map__consent">
+          <span class="ko-map__consent-icon"><Icon name="map-pin" size={26} class="ic-accent" /></span>
+          <p class="ko-map__consent-text">
+            Hier kannst Du eine Karte von <strong>OpenStreetMap</strong> laden. Dabei wird Deine
+            IP-Adresse an OpenStreetMap übertragen. Näheres in der
+            <a href="/datenschutz">Datenschutzerklärung</a>.
+          </p>
+          <button type="button" class="btn btn--secondary btn--md" id="ko-map-load">Karte laden</button>
+        </div>
       </div>
       <div class="ko-map-actions">
         <a
@@ -520,6 +528,35 @@ const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
     height: 400px;
     border: 0;
   }
+  /* Klick-zum-Laden-Platzhalter (DSGVO: kein automatischer OSM-Abruf) */
+  .ko-map__consent {
+    min-height: 400px;
+    background: var(--color-bg-deep);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 14px;
+    padding: 32px 24px;
+  }
+  .ko-map__consent-icon {
+    display: inline-flex;
+    width: 54px;
+    height: 54px;
+    border-radius: 999px;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-primary-soft);
+    border: 1px solid var(--color-hairline-strong);
+  }
+  .ko-map__consent-text {
+    margin: 0;
+    max-width: 420px;
+    font-size: 14px;
+    line-height: 1.55;
+    color: var(--text-secondary);
+  }
   .ko-map-actions {
     display: flex;
     flex-wrap: wrap;
@@ -535,6 +572,7 @@ const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
 
   @media (max-width: 640px) {
     .ko-map__frame { height: 300px; }
+    .ko-map__consent { min-height: 300px; }
     .ko-after__inner {
       grid-template-columns: 1fr;
       justify-items: start;
@@ -591,4 +629,20 @@ const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
       }
     });
   }
+</script>
+
+<script>
+  // Karte erst auf Klick laden — bis dahin geht keine Anfrage an OpenStreetMap.
+  const mapWrap = document.getElementById('ko-map');
+  const mapBtn = document.getElementById('ko-map-load');
+  mapBtn?.addEventListener('click', () => {
+    const src = mapWrap?.dataset.mapSrc;
+    if (!mapWrap || !src) return;
+    const iframe = document.createElement('iframe');
+    iframe.className = 'ko-map__frame';
+    iframe.src = src;
+    iframe.title = 'Standort der Stolpner Käsemacherei — Vorwerk 10, 01833 Stolpen';
+    iframe.loading = 'lazy';
+    mapWrap.replaceChildren(iframe);
+  });
 </script>
