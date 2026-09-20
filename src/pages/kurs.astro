@@ -203,8 +203,8 @@ const buchbareTermine = termine.filter((k) => !istVoll(k));
                 <input id="a-mail" name="email" class="ku-in" type="email" placeholder="name@beispiel.de" autocomplete="email" required />
               </div>
               <div class="ku-field">
-                <label class="ku-lab" for="a-tel">Telefon</label>
-                <input id="a-tel" name="Telefon" class="ku-in" type="tel" placeholder="Für Rückfragen & kurzfristige Infos" autocomplete="tel" required />
+                <label class="ku-lab" for="a-tel">Telefon <span class="ku-opt">(optional)</span></label>
+                <input id="a-tel" name="Telefon" class="ku-in" type="tel" placeholder="Für kurzfristige Infos, freiwillig" autocomplete="tel" />
               </div>
             </div>
 
@@ -588,6 +588,11 @@ const buchbareTermine = termine.filter((k) => !istVoll(k));
     font-weight: 600;
     color: var(--color-text);
     margin-bottom: 7px;
+  }
+  .ku-opt {
+    font-weight: 400;
+    font-size: 13px;
+    color: var(--text-caption);
   }
   .ku-in {
     width: 100%;
