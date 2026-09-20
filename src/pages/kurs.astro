@@ -3,9 +3,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
 
-// Web3Forms Access Key — gleicher Versandweg wie das Kontaktformular.
-const WEB3FORMS_KEY = '2c701b32-689d-43f3-b497-9826c6aa45d8';
-
 // Kurstermine laden: vergangene ausblenden, aufsteigend sortieren.
 const heute = new Date();
 heute.setHours(0, 0, 0, 0);
@@ -166,13 +163,8 @@ const buchbareTermine = termine.filter((k) => !istVoll(k));
           <p class="ku-form-head__lead">Fülle kurz das Formular aus — wir bestätigen Deine Reservierung per E-Mail. Bezahlt wird bar am Kurstag.</p>
         </div>
         <div class="ku-form-card">
-          <form id="anmeldung-form" class="ku-form" action="https://api.web3forms.com/submit" method="POST">
-            <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-            <input type="hidden" name="subject" value="Neue Kursanmeldung über die Website" />
-            <input type="hidden" name="from_name" value="Stolpner Käsemacherei — Kursanmeldung" />
-            <input type="hidden" name="replyto" value="" />
-            <!-- Zusätzliche Empfänger der Buchung (Web3Forms PRO-Funktion; Hauptempfänger wird im Web3Forms-Konto gesetzt). -->
-            <input type="hidden" name="ccemail" value="stolpnerkaesemacherei@gmail.com; info@unitednet-design.com" />
+          <form id="anmeldung-form" class="ku-form" action="/formular.php" method="POST">
+            <input type="hidden" name="formular" value="kursanmeldung" />
             <!-- Honeypot (Spamschutz) — für Menschen unsichtbar -->
             <input type="checkbox" name="botcheck" class="ku-hp" tabindex="-1" autocomplete="off" />
 
@@ -747,7 +739,7 @@ const buchbareTermine = termine.filter((k) => !istVoll(k));
       }
 
       try {
-        const response = await fetch('https://api.web3forms.com/submit', {
+        const response = await fetch('/formular.php', {
           method: 'POST',
           headers: { Accept: 'application/json' },
           body: new FormData(form),
