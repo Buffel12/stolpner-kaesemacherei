@@ -10,9 +10,11 @@ interface Props {
   stand?: string; // z. B. "September 2026"
 }
 const { title, description, heading, stand } = Astro.props;
+const canonical = new URL(Astro.url.pathname.replace(/\/+$/, ''), Astro.site).href;
 ---
 <BaseLayout title={title} description={description} fullBleed>
   <Fragment slot="head">
+    <link rel="canonical" href={canonical} />
     <meta name="robots" content="noindex, follow" />
   </Fragment>
 

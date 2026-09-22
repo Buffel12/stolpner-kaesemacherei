@@ -34,6 +34,57 @@ const platzText = (k: Kurs) => {
 };
 
 const buchbareTermine = termine.filter((k) => !istVoll(k));
+
+// Strukturierte Daten (schema.org Event) je Kurstermin — für Google-Rich-Results.
+function isoBerlin(datum: Date, startzeit: string, addHours = 0): string {
+  const [hh, mm] = startzeit.split(':').map(Number);
+  const y = datum.getUTCFullYear();
+  const mo = String(datum.getUTCMonth() + 1).padStart(2, '0');
+  const da = String(datum.getUTCDate()).padStart(2, '0');
+  const off = new Intl.DateTimeFormat('en-US', { timeZone: 'Europe/Berlin', timeZoneName: 'shortOffset' })
+    .formatToParts(datum)
+    .find((p) => p.type === 'timeZoneName')?.value ?? 'GMT+1';
+  const n = parseInt(off.replace('GMT', ''), 10) || 1;
+  const offset = `${n < 0 ? '-' : '+'}${String(Math.abs(n)).padStart(2, '0')}:00`;
+  return `${y}-${mo}-${da}T${String(hh + addHours).padStart(2, '0')}:${String(mm).padStart(2, '0')}:00${offset}`;
+}
+
+const kursEvents = termine.map((k) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: k.data.titel,
+  startDate: isoBerlin(k.data.datum, k.data.startzeit),
+  endDate: isoBerlin(k.data.datum, k.data.startzeit, k.data.dauerStunden),
+  eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+  eventStatus: 'https://schema.org/EventScheduled',
+  description:
+    'Käse selber machen am echten Kupferkessel bei Petra: In vier Stunden formst Du Deinen eigenen Laib, inklusive Verkostung mit Brot und Wein.',
+  image: ['https://stolpner-kaesemacherei.de/og-image.jpg'],
+  location: {
+    '@type': 'Place',
+    name: 'Stolpner Käsemacherei',
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: 'Vorwerk 10',
+      postalCode: '01833',
+      addressLocality: 'Stolpen',
+      addressRegion: 'Sachsen',
+      addressCountry: 'DE',
+    },
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: 'Stolpner Käsemacherei',
+    url: 'https://stolpner-kaesemacherei.de/',
+  },
+  offers: {
+    '@type': 'Offer',
+    price: String(k.data.preis),
+    priceCurrency: 'EUR',
+    availability: k.data.frei > 0 ? 'https://schema.org/InStock' : 'https://schema.org/SoldOut',
+    url: 'https://stolpner-kaesemacherei.de/kurs',
+  },
+}));
 ---
 <BaseLayout
   title="Käsekurs & Termine — Stolpner Käsemacherei"
@@ -47,9 +98,14 @@ const buchbareTermine = termine.filter((k) => !istVoll(k));
     <meta property="og:title" content="Käsekurs & Termine — Stolpner Käsemacherei" />
     <meta property="og:description" content="4 Stunden am echten Kessel bei Petra, inklusive Verkostung mit Brot & Wein. Deinen Platz sichern — Zahlung bar vor Ort." />
     <meta property="og:url" content="https://stolpner-kaesemacherei.de/kurs" />
-    <meta property="og:image" content="https://stolpner-kaesemacherei.de/logo.png" />
+    <meta property="og:image" content="https://stolpner-kaesemacherei.de/og-image.jpg" />
     <meta property="og:site_name" content="Stolpner Käsemacherei" />
     <meta property="og:locale" content="de_DE" />
+
+    <!-- Strukturierte Daten: je Kurstermin ein Event (für Google) -->
+    {kursEvents.map((ev) => (
+      <script type="application/ld+json" set:html={JSON.stringify(ev)} />
+    ))}
   </Fragment>
 
   <!-- ===================== 1 · SEITENKOPF ===================== -->

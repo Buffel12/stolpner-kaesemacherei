@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://stolpner-kaesemacherei.de/sitemap-index.xml
