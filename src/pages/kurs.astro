@@ -85,6 +85,60 @@ const kursEvents = termine.map((k) => ({
     url: 'https://stolpner-kaesemacherei.de/kurs',
   },
 }));
+
+// Häufige Fragen — sichtbar auf der Seite und als FAQPage-Strukturdaten.
+const faqs = [
+  {
+    frage: 'Brauche ich Vorkenntnisse?',
+    antwort:
+      'Nein. Du brauchst keinerlei Vorkenntnisse und kein eigenes Equipment. Petra zeigt Dir jeden Handgriff, Schritt für Schritt am Kessel.',
+  },
+  {
+    frage: 'Was kostet der Kurs und wie bezahle ich?',
+    antwort:
+      'Der Kurs kostet ab 69 € pro Person. Bezahlt wird ausschließlich in bar am Kurstag vor Ort — eine Online-Zahlung ist nicht nötig.',
+  },
+  {
+    frage: 'Was ist im Preis enthalten?',
+    antwort:
+      'Die persönliche Anleitung durch Petra, eine Verkostung verschiedener Sorten mit Brot und Wein, Dein eigener Käse-Rohling zum Mitnehmen samt Reife-Anleitung sowie alle Zutaten und das komplette Equipment.',
+  },
+  {
+    frage: 'Muss ich etwas mitbringen?',
+    antwort:
+      'Nein, alles steht bereit. Bring einfach gute Laune und Lust auf echtes Handwerk mit.',
+  },
+  {
+    frage: 'Wie groß sind die Gruppen?',
+    antwort:
+      'Jede Runde ist auf maximal 14 Personen begrenzt — so bleibt genug Zeit für persönliche Anleitung an jedem Kessel.',
+  },
+  {
+    frage: 'Wo findet der Kurs statt?',
+    antwort:
+      'In der Stolpner Käsemacherei, Vorwerk 10, 01833 Stolpen — mitten in der Sächsischen Schweiz, rund eine halbe Stunde von Dresden entfernt. Parken kannst Du direkt vor Ort.',
+  },
+  {
+    frage: 'Kann ich den Käse gleich essen?',
+    antwort:
+      'Nein, Deinen frischen Laib nimmst Du mit nach Hause und pflegst ihn dort noch rund drei Wochen bis zur vollen Reife. Die passende Anleitung bekommst Du mit.',
+  },
+  {
+    frage: 'Was ist, wenn ich einen gebuchten Termin absagen muss?',
+    antwort:
+      'Deinen Platz kannst Du jederzeit auf eine andere Person übertragen. Für Absagen gelten die Stornobedingungen aus unseren AGB — melde Dich einfach frühzeitig bei uns.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.frage,
+    acceptedAnswer: { '@type': 'Answer', text: f.antwort },
+  })),
+};
 ---
 <BaseLayout
   title="Käsekurs & Termine — Stolpner Käsemacherei"
@@ -106,6 +160,8 @@ const kursEvents = termine.map((k) => ({
     {kursEvents.map((ev) => (
       <script type="application/ld+json" set:html={JSON.stringify(ev)} />
     ))}
+    <!-- Strukturierte Daten: häufige Fragen -->
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
   </Fragment>
 
   <!-- ===================== 1 · SEITENKOPF ===================== -->
@@ -287,7 +343,27 @@ const kursEvents = termine.map((k) => ({
     </section>
   )}
 
-  <!-- ===================== 5 · KEIN TERMIN FREI? ===================== -->
+  <!-- ===================== 5 · FAQ ===================== -->
+  <section class="ku-faq">
+    <div class="ku-faq__head">
+      <span class="eyebrow">Häufige Fragen</span>
+      <h2 class="ku-faq__title">Gut zu wissen vor Deinem Kurs</h2>
+      <span class="rule"></span>
+    </div>
+    <div class="ku-faq__list">
+      {faqs.map((f) => (
+        <details class="ku-faq__item">
+          <summary class="ku-faq__q">
+            {f.frage}
+            <span class="ku-faq__icon" aria-hidden="true"></span>
+          </summary>
+          <p class="ku-faq__a">{f.antwort}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===================== 6 · KEIN TERMIN FREI? ===================== -->
   <section class="ku-wait">
     <div class="ku-wait__box">
       <span class="eyebrow">Kein passender Termin?</span>
@@ -708,7 +784,79 @@ const kursEvents = termine.map((k) => ({
   }
   .ku-alert--error :global(.ku-alert__icon) { color: #e0836f; }
 
-  /* ---- 5 · Warteliste ---- */
+  /* ---- 5 · FAQ ---- */
+  .ku-faq {
+    padding: clamp(48px, 6vw, 72px) clamp(18px, 4vw, 40px);
+  }
+  .ku-faq__head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ku-faq__title {
+    font-weight: 700;
+    font-size: clamp(26px, 3.4vw, 33px);
+    line-height: 1.15;
+    margin: 12px 0 0;
+    color: var(--color-text);
+  }
+  .ku-faq__list {
+    max-width: 760px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .ku-faq__item {
+    background: var(--surface-card);
+    border: 1px solid var(--border-hairline);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+  }
+  .ku-faq__q {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 18px clamp(18px, 3vw, 24px);
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(16px, 2vw, 18px);
+    color: var(--color-text);
+  }
+  .ku-faq__q::-webkit-details-marker { display: none; }
+  .ku-faq__icon {
+    position: relative;
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+  }
+  .ku-faq__icon::before,
+  .ku-faq__icon::after {
+    content: '';
+    position: absolute;
+    background: var(--color-primary);
+    border-radius: 2px;
+    transition: transform var(--dur-fast) var(--ease), opacity var(--dur-fast) var(--ease);
+  }
+  .ku-faq__icon::before { top: 8px; left: 0; width: 18px; height: 2px; }
+  .ku-faq__icon::after { left: 8px; top: 0; width: 2px; height: 18px; }
+  .ku-faq__item[open] .ku-faq__icon::after { opacity: 0; transform: rotate(90deg); }
+  .ku-faq__a {
+    margin: 0;
+    padding: 0 clamp(18px, 3vw, 24px) 20px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--text-secondary);
+  }
+
+  /* ---- 6 · Warteliste ---- */
   .ku-wait {
     padding: clamp(48px, 6vw, 72px) clamp(18px, 4vw, 40px) clamp(56px, 7vw, 88px);
   }
