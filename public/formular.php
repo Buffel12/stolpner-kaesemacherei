@@ -1,11 +1,28 @@
 <?php
 /**
- * Mail-Handler für Kontakt- und Buchungsformular der Stolpner Käsemacherei.
- * Sendet eine freundliche Bestätigung an den Kunden – in Kopie (Bcc) ans Team,
- * inklusive aller übermittelten Angaben.
+ * Mail-Handler der Stolpner Käsemacherei — Versand per authentifiziertem SMTP
+ * über das Postfach info@stolpner-kaesemacherei.de (DKIM/SPF-konform).
+ * Sendet eine freundliche Bestätigung an den Kunden, Kopie (Bcc) ans Team.
  */
-$ABSENDER = 'info@stolpner-kaesemacherei.de'; // Absender & Antwort-Adresse (echtes Postfach)
-$KOPIE    = ['info@unitednet-design.com', 'stolpnerkaesemacherei@gmail.com']; // Team-Kopien (Bcc)
+
+require __DIR__ . '/lib/phpmailer/Exception.php';
+require __DIR__ . '/lib/phpmailer/PHPMailer.php';
+require __DIR__ . '/lib/phpmailer/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+// --- Konfiguration ---------------------------------------------------------
+// Passwort liegt in einer geschützten Datei EINE EBENE ÜBER public_html,
+// damit es nicht im Web erreichbar ist und Deploys es nicht überschreiben.
+$secret = @include __DIR__ . '/../formular-secret.php';
+$SMTP_PASS = is_array($secret) ? ($secret['smtp_pass'] ?? '') : '';
+
+$SMTP_HOST = 'smtp.hostinger.com';
+$SMTP_PORT = 465;                                   // 465 = SSL
+$SMTP_USER = 'info@stolpner-kaesemacherei.de';      // Postfach = Absender
+$ABSENDER  = 'info@stolpner-kaesemacherei.de';
+$KOPIE     = ['info@unitednet-design.com', 'stolpnerkaesemacherei@gmail.com']; // Bcc ans Team
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -21,11 +38,7 @@ if (!empty($_POST['botcheck'])) {
   exit;
 }
 
-function clean_header($s) {
-  return trim(str_replace(["\r", "\n", "%0a", "%0d", "%0A", "%0D"], '', (string) $s));
-}
-
-$email = clean_header($_POST['email'] ?? '');
+$email = trim((string) ($_POST['email'] ?? ''));
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
   http_response_code(422);
   echo json_encode(['success' => false, 'message' => 'Bitte eine gültige E-Mail-Adresse angeben.']);
@@ -33,10 +46,10 @@ if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 }
 
 $istBuchung = (($_POST['formular'] ?? '') === 'kursanmeldung');
-$name = clean_header($_POST['Name'] ?? ($_POST['name'] ?? ''));
+$name = trim((string) ($_POST['Name'] ?? ($_POST['name'] ?? '')));
 $anrede = $name !== '' ? $name : 'zusammen';
 
-// Übermittelte Angaben sammeln (technische Felder ausklammern), in sinnvoller Reihenfolge.
+// Übermittelte Angaben sammeln (technische Felder ausklammern), sinnvoll sortiert.
 $ignore = ['botcheck', 'formular', 'access_key', 'from_name', 'replyto', 'ccemail', 'subject', 'datenschutz'];
 $labels = [
   'email' => 'E-Mail', 'name' => 'Name', 'Name' => 'Name',
@@ -76,18 +89,36 @@ if ($istBuchung) {
 }
 $body .= "Herzliche Grüße\nPetra & Lutz Gräfe\nStolpner Käsemacherei · Vorwerk 10 · 01833 Stolpen";
 
-$headers = [];
-$headers[] = 'From: Stolpner Käsemacherei <' . $ABSENDER . '>';
-$headers[] = 'Reply-To: ' . $ABSENDER;
-if (!empty($KOPIE)) $headers[] = 'Bcc: ' . implode(', ', $KOPIE);
-$headers[] = 'MIME-Version: 1.0';
-$headers[] = 'Content-Type: text/plain; charset=UTF-8';
+if ($SMTP_PASS === '') {
+  http_response_code(500);
+  echo json_encode(['success' => false, 'message' => 'Serverkonfiguration unvollständig.']);
+  exit;
+}
 
-$ok = @mail($email, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers));
+$mail = new PHPMailer(true);
+try {
+  $mail->isSMTP();
+  $mail->Host = $SMTP_HOST;
+  $mail->SMTPAuth = true;
+  $mail->Username = $SMTP_USER;
+  $mail->Password = $SMTP_PASS;
+  $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+  $mail->Port = $SMTP_PORT;
+  $mail->CharSet = 'UTF-8';
 
-if ($ok) {
+  $mail->setFrom($ABSENDER, 'Stolpner Käsemacherei');
+  $mail->addReplyTo($ABSENDER, 'Stolpner Käsemacherei');
+  $mail->addAddress($email);
+  foreach ($KOPIE as $k) {
+    $mail->addBCC($k);
+  }
+
+  $mail->Subject = $subject;
+  $mail->Body = $body;
+
+  $mail->send();
   echo json_encode(['success' => true]);
-} else {
+} catch (Exception $e) {
   http_response_code(500);
   echo json_encode(['success' => false, 'message' => 'Der Versand hat nicht geklappt. Bitte später erneut versuchen oder direkt anrufen.']);
 }
