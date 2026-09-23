@@ -1,14 +1,11 @@
 <?php
 /**
  * Mail-Handler für Kontakt- und Buchungsformular der Stolpner Käsemacherei.
- * Läuft auf dem Hostinger-Server, liefert die Formulardaten per E-Mail zu.
- *
- * Empfänger hier zentral pflegen (später auf stolpner + gmail umstellen):
+ * Sendet eine freundliche Bestätigung an den Kunden – in Kopie (Bcc) ans Team,
+ * inklusive aller übermittelten Angaben.
  */
-$EMPFAENGER = ['info@unitednet-design.com'];
-// Später z. B.: ['info@stolpner-kaesemacherei.de', 'stolpnerkaesemacherei@gmail.com'];
-
-$ABSENDER = 'no-reply@unitednet-design.com'; // Absender der Formular-Mails (Zustellung bestätigt)
+$ABSENDER = 'info@stolpner-kaesemacherei.de'; // Absender & Antwort-Adresse (echtes Postfach)
+$KOPIE    = ['info@unitednet-design.com', 'stolpnerkaesemacherei@gmail.com']; // Team-Kopien (Bcc)
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -24,7 +21,6 @@ if (!empty($_POST['botcheck'])) {
   exit;
 }
 
-// Header-Injection verhindern
 function clean_header($s) {
   return trim(str_replace(["\r", "\n", "%0a", "%0d", "%0A", "%0D"], '', (string) $s));
 }
@@ -36,47 +32,58 @@ if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
   exit;
 }
 
-$typ = (($_POST['formular'] ?? '') === 'kursanmeldung') ? 'Kursanmeldung' : 'Kontaktanfrage';
-$subject = 'Neue ' . $typ . ' über die Website';
+$istBuchung = (($_POST['formular'] ?? '') === 'kursanmeldung');
+$name = clean_header($_POST['Name'] ?? ($_POST['name'] ?? ''));
+$anrede = $name !== '' ? $name : 'zusammen';
 
-// Technische Felder nicht in den Text übernehmen
+// Übermittelte Angaben sammeln (technische Felder ausklammern), in sinnvoller Reihenfolge.
 $ignore = ['botcheck', 'formular', 'access_key', 'from_name', 'replyto', 'ccemail', 'subject', 'datenschutz'];
 $labels = [
-  'email'   => 'E-Mail',
-  'name'    => 'Name',
-  'Name'    => 'Name',
-  'message' => 'Nachricht',
-  'Nachricht' => 'Nachricht',
-  'telefon' => 'Telefon',
-  'Telefon' => 'Telefon',
-  'anliegen' => 'Anliegen',
-  'Anzahl_Personen' => 'Anzahl Personen',
-  'Kurstermin' => 'Kurstermin',
+  'email' => 'E-Mail', 'name' => 'Name', 'Name' => 'Name',
+  'message' => 'Nachricht', 'Nachricht' => 'Nachricht',
+  'telefon' => 'Telefon', 'Telefon' => 'Telefon', 'anliegen' => 'Anliegen',
+  'Anzahl_Personen' => 'Anzahl Personen', 'Kurstermin' => 'Kurstermin',
 ];
-
+$order = ['Kurstermin', 'Name', 'Anzahl_Personen', 'email', 'Telefon', 'anliegen', 'Nachricht', 'message'];
 $lines = [];
-foreach ($_POST as $key => $val) {
-  if (in_array($key, $ignore, true)) continue;
+$seen = [];
+$emit = function ($key) use (&$lines, &$seen, $labels, $ignore) {
+  if (isset($seen[$key]) || in_array($key, $ignore, true) || !isset($_POST[$key])) return;
+  $val = $_POST[$key];
   if (is_array($val)) $val = implode(', ', $val);
   $val = trim((string) $val);
-  if ($val === '') continue;
-  $label = $labels[$key] ?? $key;
-  $lines[] = $label . ': ' . $val;
-}
+  if ($val === '') return;
+  $seen[$key] = true;
+  $lines[] = ($labels[$key] ?? $key) . ': ' . $val;
+};
+foreach ($order as $k) $emit($k);
+foreach (array_keys($_POST) as $k) $emit($k);
+$angaben = implode("\n", $lines);
 
-$body  = 'Neue ' . $typ . " über stolpner-kaesemacherei.de\n\n";
-$body .= implode("\n", $lines) . "\n";
+if ($istBuchung) {
+  $subject = 'Deine Anmeldung zum Käsekurs – Stolpner Käsemacherei';
+  $body  = "Hallo $anrede,\n\n";
+  $body .= "vielen Dank für Deine Anmeldung zum Käsekurs – wir freuen uns riesig, Dich bald am Kupferkessel zu begrüßen!\n\n";
+  $body .= "Das haben wir notiert:\n$angaben\n\n";
+  $body .= "Wie es weitergeht:\nWir prüfen kurz die Verfügbarkeit und bestätigen Dir Deinen Platz persönlich. Den Kursbeitrag (69 € pro Person) zahlst Du ganz entspannt in bar am Kurstag vor Ort.\n\n";
+  $body .= "Fragen oder Änderungen? Antworte einfach auf diese E-Mail oder ruf uns an: 0171 818 1435.\n\n";
+} else {
+  $subject = 'Danke für Deine Nachricht – Stolpner Käsemacherei';
+  $body  = "Hallo $anrede,\n\n";
+  $body .= "vielen Dank für Deine Nachricht – wir haben sie erhalten und melden uns so schnell wie möglich bei Dir, meist innerhalb von zwei Werktagen.\n\n";
+  $body .= "Deine Angaben:\n$angaben\n\n";
+  $body .= "Falls es dringend ist, ruf uns einfach an: 0171 818 1435.\n\n";
+}
+$body .= "Herzliche Grüße\nPetra & Lutz Gräfe\nStolpner Käsemacherei · Vorwerk 10 · 01833 Stolpen";
 
 $headers = [];
-$headers[] = 'From: Stolpner Käsemacherei (Website) <' . $ABSENDER . '>';
-$headers[] = 'Reply-To: ' . $email;
+$headers[] = 'From: Stolpner Käsemacherei <' . $ABSENDER . '>';
+$headers[] = 'Reply-To: ' . $ABSENDER;
+if (!empty($KOPIE)) $headers[] = 'Bcc: ' . implode(', ', $KOPIE);
 $headers[] = 'MIME-Version: 1.0';
 $headers[] = 'Content-Type: text/plain; charset=UTF-8';
 
-$encSubject = '=?UTF-8?B?' . base64_encode($subject) . '?=';
-$to = implode(', ', $EMPFAENGER);
-
-$ok = @mail($to, $encSubject, $body, implode("\r\n", $headers));
+$ok = @mail($email, '=?UTF-8?B?' . base64_encode($subject) . '?=', $body, implode("\r\n", $headers));
 
 if ($ok) {
   echo json_encode(['success' => true]);
