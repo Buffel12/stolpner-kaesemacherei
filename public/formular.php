@@ -21,7 +21,7 @@ use PHPMailer\PHPMailer\Exception;
 // --- Konfiguration ---------------------------------------------------------
 // Passwort liegt in einer geschützten Datei außerhalb des Web-Roots, damit es
 // nicht im Web erreichbar ist und Deploys es nicht überschreiben:
-// Live eine Ebene über public_html, Staging (Subdomain-Ordner) zwei Ebenen darüber.
+// Gesucht wird eine und zwei Ebenen über dem Web-Root.
 $secret = null;
 foreach ([dirname(__DIR__), dirname(__DIR__, 2)] as $dir) {
   if (is_file($dir . '/formular-secret.php')) { $secret = include $dir . '/formular-secret.php'; break; }
@@ -33,11 +33,6 @@ $SMTP_PORT = 465;                                   // 465 = SSL
 $SMTP_USER = 'info@stolpner-kaesemacherei.de';      // Postfach = Absender
 $ABSENDER  = 'info@stolpner-kaesemacherei.de';
 $KOPIE     = ['info@unitednet-design.com', 'stolpnerkaesemacherei@gmail.com']; // Bcc ans Team
-// Staging (kaesepetra.unitednet-design.com): Kopien nur an die Agentur, damit
-// Testbuchungen nicht bei Petra & Lutz landen.
-if (stripos($_SERVER['HTTP_HOST'] ?? '', 'unitednet-design.com') !== false) {
-  $KOPIE = ['info@unitednet-design.com'];
-}
 
 header('Content-Type: application/json; charset=utf-8');
 
