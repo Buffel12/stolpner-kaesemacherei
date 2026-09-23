@@ -50,6 +50,8 @@ $labels = [
   'telefon' => 'Telefon',
   'Telefon' => 'Telefon',
   'anliegen' => 'Anliegen',
+  'Anzahl_Personen' => 'Anzahl Personen',
+  'Kurstermin' => 'Kurstermin',
 ];
 
 $lines = [];
