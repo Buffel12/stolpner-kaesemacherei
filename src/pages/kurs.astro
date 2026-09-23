@@ -33,7 +33,6 @@ const platzText = (k: Kurs) => {
     : `${k.data.frei} ${platzWort(k.data.frei)} frei`;
 };
 
-const buchbareTermine = termine.filter((k) => !istVoll(k));
 
 // Strukturierte Daten (schema.org Event) je Kurstermin — für Google-Rich-Results.
 function isoBerlin(datum: Date, startzeit: string, addHours = 0): string {
@@ -235,7 +234,7 @@ const faqSchema = {
     {termine.length > 0 ? (
       <ul class="ku-list">
         {termine.map((k) => (
-          <li class:list={['ku-card', { 'ku-card--voll': istVoll(k) }]}>
+          <li class:list={['ku-card', { 'ku-card--voll': istVoll(k) }]} data-kurs-id={k.id}>
             <div class="ku-card__date">
               <span class="ku-card__weekday">{wochentag.format(k.data.datum)}</span>
               <span class="ku-card__day">{langesDatum.format(k.data.datum)}</span>
@@ -246,12 +245,13 @@ const faqSchema = {
               {k.data.hinweis && <span class="ku-card__hint">{k.data.hinweis}</span>}
             </div>
             <div class="ku-card__action">
-              <span class:list={['ku-badge', `ku-badge--${statusKey(k)}`]}>{platzText(k)}</span>
-              {istVoll(k) ? (
-                <button type="button" class="btn btn--ghost btn--md" disabled>Ausgebucht</button>
-              ) : (
-                <button type="button" class="btn btn--primary btn--md ku-book" data-termin={terminLabel(k)}>Anmelden</button>
-              )}
+              <span class:list={['ku-badge', `ku-badge--${statusKey(k)}`]} data-badge>{platzText(k)}</span>
+              <button
+                type="button"
+                class:list={['btn', 'btn--md', 'ku-book', istVoll(k) ? 'btn--ghost' : 'btn--primary']}
+                data-termin={terminLabel(k)}
+                disabled={istVoll(k)}
+              >{istVoll(k) ? 'Ausgebucht' : 'Anmelden'}</button>
             </div>
           </li>
         ))}
@@ -265,7 +265,7 @@ const faqSchema = {
   </section>
 
   <!-- ===================== 4 · ANMELDUNG (BUCHUNGSFORMULAR) ===================== -->
-  {buchbareTermine.length > 0 && (
+  {termine.length > 0 && (
     <section class="ku-form-section" id="anmeldung">
       <div class="ku-form-wrap">
         <div class="ku-form-head">
@@ -284,8 +284,14 @@ const faqSchema = {
               <label class="ku-lab" for="a-termin">Welcher Termin?</label>
               <select id="a-termin" name="Kurstermin" class="ku-in" required>
                 <option value="">Bitte Termin wählen …</option>
-                {buchbareTermine.map((k) => (
-                  <option value={terminLabel(k)}>{kurzDatum.format(k.data.datum)}, {k.data.startzeit} Uhr — noch {k.data.frei} {platzWort(k.data.frei)} frei</option>
+                {termine.map((k) => (
+                  <option
+                    value={terminLabel(k)}
+                    data-kurs-id={k.id}
+                    data-kurz={`${kurzDatum.format(k.data.datum)}, ${k.data.startzeit} Uhr`}
+                    data-frei={k.data.frei}
+                    disabled={istVoll(k)}
+                  >{kurzDatum.format(k.data.datum)}, {k.data.startzeit} Uhr — {istVoll(k) ? 'ausgebucht' : `noch ${k.data.frei} ${platzWort(k.data.frei)} frei`}</option>
                 ))}
               </select>
             </div>
@@ -331,11 +337,11 @@ const faqSchema = {
 
             <div class="ku-alert ku-alert--success" data-form-success role="status">
               <Icon name="check-circle" size={19} class="ku-alert__icon" />
-              <span>Danke für Deine Anmeldung! Wir bestätigen Deinen Platz so schnell wie möglich per E-Mail. Bezahlt wird bar am Kurstag.</span>
+              <span data-success-text>Danke für Deine Anmeldung! Wir bestätigen Deinen Platz so schnell wie möglich per E-Mail. Bezahlt wird bar am Kurstag.</span>
             </div>
             <div class="ku-alert ku-alert--error" data-form-error role="alert">
               <Icon name="alert-circle" size={19} class="ku-alert__icon" />
-              <span>Da ist etwas schiefgelaufen. Bitte versuch es noch einmal oder ruf uns kurz an: 0171 818 1435.</span>
+              <span data-error-text>Da ist etwas schiefgelaufen. Bitte versuch es noch einmal oder ruf uns kurz an: 0171 818 1435.</span>
             </div>
           </form>
         </div>
@@ -913,12 +919,76 @@ const faqSchema = {
       const label = btn.dataset.termin ?? '';
       if (select) {
         const match = Array.from(select.options).find((o) => o.value === label);
-        if (match) select.value = label;
+        if (match) {
+          select.value = label;
+          select.dispatchEvent(new Event('change'));
+        }
       }
       document.getElementById('anmeldung')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       window.setTimeout(() => (document.getElementById('a-name') as HTMLInputElement | null)?.focus(), 500);
     });
   });
+
+  // Live-Verfügbarkeit: freie Plätze aus der Datenbank holen und Karten, Buttons
+  // und Auswahlliste aktualisieren. Schlägt der Abruf fehl, bleiben die Werte
+  // aus dem Build (frei: in der .md) stehen — die Seite funktioniert trotzdem.
+  const personen = document.getElementById('a-personen') as HTMLInputElement | null;
+  const platzWort = (n: number) => (n === 1 ? 'Platz' : 'Plätze');
+
+  function personenGrenze() {
+    if (!select || !personen) return;
+    const frei = Number(select.selectedOptions[0]?.dataset.frei ?? 14);
+    personen.max = String(Math.max(1, Math.min(14, frei)));
+  }
+  select?.addEventListener('change', personenGrenze);
+
+  async function ladeVerfuegbarkeit() {
+    try {
+      const res = await fetch('/verfuegbarkeit.php', { cache: 'no-store' });
+      if (!res.ok) return;
+      const data = await res.json();
+      if (!data?.success) return;
+      const kurse: Record<string, { plaetze: number; frei: number }> = data.kurse ?? {};
+
+      document.querySelectorAll<HTMLElement>('.ku-card[data-kurs-id]').forEach((card) => {
+        const info = kurse[card.dataset.kursId ?? ''];
+        if (!info) return;
+        const frei = info.frei;
+        const voll = frei <= 0;
+        const knapp = !voll && frei <= 3;
+        card.classList.toggle('ku-card--voll', voll);
+
+        const badge = card.querySelector<HTMLElement>('[data-badge]');
+        if (badge) {
+          badge.className = `ku-badge ku-badge--${voll ? 'ausgebucht' : knapp ? 'wenige' : 'frei'}`;
+          badge.textContent = voll
+            ? 'Ausgebucht'
+            : `${knapp ? 'Nur noch ' : ''}${frei} ${platzWort(frei)} frei`;
+        }
+        const btn = card.querySelector<HTMLButtonElement>('.ku-book');
+        if (btn) {
+          btn.disabled = voll;
+          btn.classList.toggle('btn--ghost', voll);
+          btn.classList.toggle('btn--primary', !voll);
+          btn.textContent = voll ? 'Ausgebucht' : 'Anmelden';
+        }
+      });
+
+      select?.querySelectorAll<HTMLOptionElement>('option[data-kurs-id]').forEach((opt) => {
+        const info = kurse[opt.dataset.kursId ?? ''];
+        if (!info) return;
+        const voll = info.frei <= 0;
+        opt.dataset.frei = String(info.frei);
+        opt.disabled = voll;
+        opt.textContent = `${opt.dataset.kurz} — ${voll ? 'ausgebucht' : `noch ${info.frei} ${platzWort(info.frei)} frei`}`;
+        if (voll && opt.selected && select) select.value = '';
+      });
+      personenGrenze();
+    } catch {
+      /* Fallback: Build-Werte bleiben stehen. */
+    }
+  }
+  ladeVerfuegbarkeit();
 
   // Formularversand via Web3Forms (gleiche Logik wie Kontaktformular).
   const form = document.getElementById('anmeldung-form') as HTMLFormElement | null;
@@ -928,6 +998,10 @@ const faqSchema = {
     const replyto = form.querySelector<HTMLInputElement>('input[name="replyto"]');
     const emailInput = form.querySelector<HTMLInputElement>('input[name="email"]');
     const submitBtn = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const successText = form.querySelector<HTMLElement>('[data-success-text]');
+    const errorText = form.querySelector<HTMLElement>('[data-error-text]');
+    const successDefault = successText?.textContent ?? '';
+    const errorDefault = errorText?.textContent ?? '';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -943,23 +1017,35 @@ const faqSchema = {
       }
 
       try {
+        // Kurs-ID des gewählten Termins mitschicken (für den Platzabzug in der DB).
+        const body = new FormData(form);
+        body.set('kurs_id', select?.selectedOptions[0]?.dataset.kursId ?? '');
+
         const response = await fetch('/formular.php', {
           method: 'POST',
           headers: { Accept: 'application/json' },
-          body: new FormData(form),
+          body,
         });
         const data = await response.json();
 
         if (response.ok && data.success) {
+          if (successText) {
+            successText.textContent = data.reserviert
+              ? 'Geschafft — Dein Platz ist fest reserviert! Die Bestätigung ist per E-Mail unterwegs. Bezahlt wird bar am Kurstag.'
+              : successDefault;
+          }
           success?.classList.add('is-visible');
           form.reset();
           success?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
         } else {
+          if (errorText) errorText.textContent = response.status === 409 && data.message ? data.message : errorDefault;
           error?.classList.add('is-visible');
         }
       } catch {
+        if (errorText) errorText.textContent = errorDefault;
         error?.classList.add('is-visible');
       } finally {
+        ladeVerfuegbarkeit();
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.textContent = originalLabel;

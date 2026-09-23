@@ -19,3 +19,6 @@ pnpm-debug.log*
 
 # macOS
 .DS_Store
+
+# Buchungssystem: Zugangsdaten nie committen
+buchung-secret.php
