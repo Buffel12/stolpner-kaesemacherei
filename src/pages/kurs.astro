@@ -933,6 +933,7 @@ const faqSchema = {
   // und Auswahlliste aktualisieren. Schlägt der Abruf fehl, bleiben die Werte
   // aus dem Build (frei: in der .md) stehen — die Seite funktioniert trotzdem.
   const personen = document.getElementById('a-personen') as HTMLInputElement | null;
+  const geladen = Date.now();   // Beginn der Ausfüllzeit (Spamschutz)
   const platzWort = (n: number) => (n === 1 ? 'Platz' : 'Plätze');
 
   function personenGrenze() {
@@ -1020,6 +1021,7 @@ const faqSchema = {
         // Kurs-ID des gewählten Termins mitschicken (für den Platzabzug in der DB).
         const body = new FormData(form);
         body.set('kurs_id', select?.selectedOptions[0]?.dataset.kursId ?? '');
+        body.set('js_dauer', String(Date.now() - geladen));   // Spamschutz (s. formular.php)
 
         const response = await fetch('/formular.php', {
           method: 'POST',

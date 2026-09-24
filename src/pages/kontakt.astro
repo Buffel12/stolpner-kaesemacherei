@@ -588,6 +588,9 @@ import Icon from '../components/Icon.astro';
 
 <script>
   const form = document.getElementById('kontakt-form') as HTMLFormElement | null;
+  // Spamschutz: Ausfüllzeit messen — der Server verwirft Anfragen ohne sie
+  // bzw. mit unrealistisch kurzer Dauer (typisch für Bots).
+  const geladen = Date.now();
 
   if (form) {
     const success = form.querySelector<HTMLElement>('[data-form-success]');
@@ -614,7 +617,11 @@ import Icon from '../components/Icon.astro';
         const response = await fetch('/formular.php', {
           method: 'POST',
           headers: { Accept: 'application/json' },
-          body: new FormData(form),
+          body: (() => {
+            const body = new FormData(form);
+            body.set('js_dauer', String(Date.now() - geladen));
+            return body;
+          })(),
         });
         const data = await response.json();
 
