@@ -1,0 +1,13 @@
+# Alle Neben-Domains (alte Umlaut-Domain stolpner-käsemacherei.de, www-Varianten)
+# dauerhaft (301) auf die Hauptdomain umleiten.
+# Existiert die aufgerufene Seite auch auf der neuen Website, bleibt der Pfad erhalten;
+# alte WordPress-Adressen, die es nicht mehr gibt, landen auf der Startseite.
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST} !^stolpner-kaesemacherei\.de$ [NC]
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*)$ https://stolpner-kaesemacherei.de/$1 [R=301,L]
+
+RewriteCond %{HTTP_HOST} !^stolpner-kaesemacherei\.de$ [NC]
+RewriteRule ^ https://stolpner-kaesemacherei.de/ [R=301,L]
