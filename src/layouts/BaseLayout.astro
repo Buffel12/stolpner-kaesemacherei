@@ -36,9 +36,10 @@ const { title, description, fullBleed = false } = Astro.props;
     <slot name="head" />
   </head>
   <body>
+    <a href="#inhalt" class="skip-link">Zum Inhalt springen</a>
     <Header />
 
-    <main class={fullBleed ? 'page-full' : 'page'}>
+    <main id="inhalt" tabindex="-1" class={fullBleed ? 'page-full' : 'page'}>
       <slot />
     </main>
 
@@ -47,6 +48,27 @@ const { title, description, fullBleed = false } = Astro.props;
 </html>
 
 <style>
+  /* Skip-Link: nur sichtbar, wenn er per Tastatur fokussiert wird. */
+  .skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    z-index: 1000;
+    padding: 0.6rem 1rem;
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    font-weight: 700;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    transition: top 0.15s ease;
+  }
+  .skip-link:focus {
+    top: 1rem;
+  }
+  /* Fokussiertes <main> soll keinen Umriss zeigen (es ist nur Sprungziel). */
+  main:focus {
+    outline: none;
+  }
   /* Standard-Seiten: zentrierter Container mit Innenabstand. */
   .page {
     max-width: var(--container-max);

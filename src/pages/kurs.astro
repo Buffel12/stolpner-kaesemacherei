@@ -278,7 +278,7 @@ const faqSchema = {
           <form id="anmeldung-form" class="ku-form" action="/formular.php" method="POST">
             <input type="hidden" name="formular" value="kursanmeldung" />
             <!-- Honeypot (Spamschutz) — für Menschen unsichtbar -->
-            <input type="checkbox" name="botcheck" class="ku-hp" tabindex="-1" autocomplete="off" />
+            <input type="checkbox" name="botcheck" class="ku-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
             <div class="ku-field">
               <label class="ku-lab" for="a-termin">Welcher Termin?</label>

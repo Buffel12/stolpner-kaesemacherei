@@ -74,7 +74,7 @@ import Icon from '../components/Icon.astro';
         <form id="kontakt-form" class="ko-form" action="/formular.php" method="POST">
           <input type="hidden" name="formular" value="kontakt" />
           <!-- Honeypot (Spamschutz) — für Menschen unsichtbar -->
-          <input type="checkbox" name="botcheck" class="ko-hp" tabindex="-1" autocomplete="off" />
+          <input type="checkbox" name="botcheck" class="ko-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
           <div class="ko-field">
             <label class="ko-lab" for="k-name">Wie heißt Du?</label>
