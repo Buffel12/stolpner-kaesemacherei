@@ -44,13 +44,13 @@ import Icon from '../components/Icon.astro';
         <span class="ko-channel__icon"><Icon name="mail" size={21} class="ic-accent" /></span>
         <h2 class="ko-channel__title">E-Mail</h2>
         <p class="ko-channel__note">Schreib uns, wann es Dir passt</p>
-        <a href="mailto:info@stolpner-kaesemacherei.de" class="ko-channel__value ko-channel__value--mail">info@stolpner-kaesemacherei.de</a>
+        <a href="mailto:info@stolpner-kaesemacherei.de" class="ko-channel__value">info@<wbr />stolpner-kaesemacherei.de</a>
       </div>
       <div class="ko-channel">
         <span class="ko-channel__icon"><Icon name="map-pin" size={21} class="ic-accent" /></span>
         <h2 class="ko-channel__title">Vor Ort</h2>
         <p class="ko-channel__note">Hier findest Du die Käsemacherei</p>
-        <span class="ko-channel__value ko-channel__value--plain">Vorwerk 10, 01833 Stolpen</span>
+        <a href="#anfahrt" class="ko-channel__value">Vorwerk 10, 01833 Stolpen</a>
       </div>
       <div class="ko-channel">
         <span class="ko-channel__icon"><Icon name="facebook" size={21} class="ic-accent" /></span>
@@ -149,7 +149,7 @@ import Icon from '../components/Icon.astro';
   </section>
 
   <!-- ===================== 6 · STANDORT / ANFAHRT ===================== -->
-  <section class="ko-map-section">
+  <section class="ko-map-section" id="anfahrt">
     <div class="ko-map-wrap">
       <div class="ko-map-head">
         <span class="eyebrow">Anfahrt</span>
@@ -287,13 +287,6 @@ import Icon from '../components/Icon.astro';
   .ko-channel__value {
     font-weight: 600;
     font-size: 15px;
-  }
-  .ko-channel__value--mail {
-    font-size: 13px;
-    word-break: break-all;
-  }
-  .ko-channel__value--plain {
-    color: var(--color-text);
   }
 
   /* ---- 3 · Formular ---- */
@@ -495,6 +488,7 @@ import Icon from '../components/Icon.astro';
   /* ---- 6 · Standort / Anfahrt ---- */
   .ko-map-section {
     padding: 0 clamp(18px, 4vw, 40px) clamp(56px, 7vw, 88px);
+    scroll-margin-top: 96px; /* Sprungziel der Adresse oben: nicht unter der festen Kopfleiste */
   }
   .ko-map-wrap {
     max-width: 1080px;
