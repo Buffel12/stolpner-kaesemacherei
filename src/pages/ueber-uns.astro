@@ -61,11 +61,7 @@ import Icon from '../components/Icon.astro';
 
   <!-- ===================== 3 · UNSERE GESCHICHTE ===================== -->
   <section class="section">
-    <div class="uu-split uu-split--top">
-      <figure class="uu-story__photo">
-        <img src="/images/petra-lutz-alp-laibe.jpg" alt="Petra und Lutz Gräfe mit frisch gereiften Käselaiben auf einer Schweizer Alp" loading="lazy" />
-        <figcaption>Petra und Lutz auf der Alp — wo die Begeisterung fürs Käsehandwerk begann.</figcaption>
-      </figure>
+    <div class="uu-story-split">
       <div class="uu-story__body">
         <span class="eyebrow">Wie alles begann</span>
         <h2 class="uu-story__title">Ein Sommer auf der Alp — und in mir ist etwas umgekippt</h2>
@@ -77,6 +73,10 @@ import Icon from '../components/Icon.astro';
           <p>Heute, über zehn Jahre und mehr als 1.000 Teilnehmer später, stehe ich in Stolpen am Kessel, mit Menschen wie Dir daneben. Und jedes Mal, wenn jemand seinen ersten eigenen Laib in den Händen hält, sehe ich denselben Moment, der mich damals gepackt hat.</p>
         </div>
       </div>
+      <figure class="uu-story__photo">
+        <img src="/images/petra-lutz-alp-laibe.jpg" alt="Petra und Lutz Gräfe mit frisch gereiften Käselaiben auf einer Schweizer Alp" loading="lazy" />
+        <figcaption>Petra und Lutz auf der Alp — wo die Begeisterung fürs Käsehandwerk begann.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -440,6 +440,20 @@ import Icon from '../components/Icon.astro';
   .uu-story__cols p:last-child { margin-bottom: 0; }
   @media (max-width: 640px) {
     .uu-story__cols { columns: 1; }
+  }
+  /* Geschichte: mobil Text oben / Bild unten (Code-Reihenfolge),
+     ab 760px 2 Spalten mit Bild links (per order) – spiegelt Abschnitt 2. */
+  .uu-story-split {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: clamp(28px, 4vw, 48px);
+    align-items: start;
+  }
+  @media (min-width: 760px) {
+    .uu-story-split { grid-template-columns: 1fr 1fr; align-items: center; }
+    .uu-story-split .uu-story__photo { order: -1; }
   }
   .uu-story__photo {
     margin: 0;
