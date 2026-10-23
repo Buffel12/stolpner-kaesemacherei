@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # Buchungssystem: Zugangsdaten nie committen
 buchung-secret.php
+
+# Roh-Originale der Fotos (nur lokal, nicht ins Web/Repo)
+bilder-original/

@@ -71,6 +71,10 @@ import Icon from '../components/Icon.astro';
         <p>Ich merkte: Erst wer selbst erlebt, wie viel Arbeit und Gefühl in einem einzigen Laib stecken, versteht wirklich, was guter Käse ist. Dieses Wissen wollte ich nicht für mich behalten. Ich kam mehrere Sommer wieder, lernte jeden Handgriff, und irgendwann war klar, dass ich das weitergeben muss.</p>
         <p>Heute, über zehn Jahre und mehr als 1.000 Teilnehmer später, stehe ich in Stolpen am Kessel, mit Menschen wie Dir daneben. Und jedes Mal, wenn jemand seinen ersten eigenen Laib in den Händen hält, sehe ich denselben Moment, der mich damals gepackt hat.</p>
       </div>
+      <figure class="uu-story__photo">
+        <img src="/images/petra-lutz-alp-laibe.jpg" alt="Petra und Lutz Gräfe mit frisch gereiften Käselaiben auf einer Schweizer Alp" loading="lazy" />
+        <figcaption>Petra und Lutz auf der Alp — wo die Begeisterung fürs Käsehandwerk begann.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -434,6 +438,23 @@ import Icon from '../components/Icon.astro';
   .uu-story__cols p:last-child { margin-bottom: 0; }
   @media (max-width: 640px) {
     .uu-story__cols { columns: 1; }
+  }
+  .uu-story__photo { margin: clamp(28px, 4vw, 40px) 0 0; }
+  .uu-story__photo img {
+    width: 100%;
+    max-width: 520px;
+    height: auto;
+    display: block;
+    border-radius: 12px;
+    border: 1px solid var(--color-hairline);
+    box-shadow: var(--shadow);
+  }
+  .uu-story__photo figcaption {
+    margin-top: 10px;
+    max-width: 520px;
+    font-size: 14px;
+    font-style: italic;
+    color: var(--text-caption);
   }
 
   /* ---- 4 · Mission ---- */

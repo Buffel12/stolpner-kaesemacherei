@@ -139,6 +139,23 @@ import Icon from '../components/Icon.astro';
     </div>
   </section>
 
+  <!-- ===================== 4b · GENUSS & VERKOSTUNG ===================== -->
+  <section class="section">
+    <div class="section__head">
+      <h2 class="section__title">Nicht nur selbst gemacht — auch verkostet</h2>
+      <span class="rule"></span>
+      <p class="section__intro">Während Dein Käse arbeitet, probierst Du Dich durch viele Sorten — dazu frisches Brot, ein Glas Wein und liebevoll angerichtete Platten. So wird aus dem Käsemachen ein ganzer Genussabend.</p>
+    </div>
+    <div class="genuss-grid">
+      <figure class="genuss-cell"><img src="/images/verkostung-camembert-kornblume.jpg" alt="Selbstgemachter Camembert mit blauer Kornblume vor Alpenkulisse" loading="lazy" /></figure>
+      <figure class="genuss-cell"><img src="/images/verkostung-kaese-brot-brett.jpg" alt="Käse-Brot-Brett mit verschiedenen Sorten, Blüten und frischem Brot" loading="lazy" /></figure>
+      <figure class="genuss-cell"><img src="/images/verkostung-schieferplatte-feigen.jpg" alt="Schieferplatte mit kunstvoll angerichteten Käsesorten, Feigen und Mandarinen" loading="lazy" /></figure>
+      <figure class="genuss-cell"><img src="/images/verkostung-buffet-platte.jpg" alt="Große Käse-Buffetplatte mit Mandarinen, Beeren und Nüssen" loading="lazy" /></figure>
+      <figure class="genuss-cell"><img src="/images/verkostung-blauschimmel-brombeeren.jpg" alt="Blauschimmelkäse mit frischen Brombeeren und Rosmarin auf Schiefer" loading="lazy" /></figure>
+      <figure class="genuss-cell"><img src="/images/verkostung-kaeseglocke.jpg" alt="Zweistöckige Käse-Etagere unter einer Glasglocke mit Trauben und Brot" loading="lazy" /></figure>
+    </div>
+  </section>
+
   <!-- ===================== 5 · DAS NIMMST DU MIT ===================== -->
   <section class="section">
     <div class="feature-grid">
@@ -561,6 +578,26 @@ import Icon from '../components/Icon.astro';
     line-height: 1.35;
     color: var(--color-text);
   }
+
+  /* ---- 4b · Genuss-Galerie ---- */
+  .genuss-grid {
+    max-width: 1080px;
+    margin: clamp(32px, 5vw, 48px) auto 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .genuss-cell {
+    margin: 0;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    border: 1px solid var(--color-hairline);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+  .genuss-cell img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  @media (max-width: 760px) { .genuss-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 420px) { .genuss-grid { grid-template-columns: 1fr; } }
 
   /* ---- 8 · Abschluss-CTA ---- */
   .final-cta {
