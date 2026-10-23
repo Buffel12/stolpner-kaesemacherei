@@ -61,20 +61,22 @@ import Icon from '../components/Icon.astro';
 
   <!-- ===================== 3 · UNSERE GESCHICHTE ===================== -->
   <section class="section">
-    <div class="uu-story">
-      <span class="eyebrow">Wie alles begann</span>
-      <h2 class="uu-story__title">Ein Sommer auf der Alp — und in mir ist etwas umgekippt</h2>
-      <span class="rule rule--left"></span>
-      <div class="uu-story__cols">
-        <p>Ich habe Agrarwissenschaften studiert und dachte, ich wüsste, wie Lebensmittel entstehen. Bis ich zum ersten Mal einen Sommer auf einer Schweizer Alp verbrachte, bei einer Bauernfamilie, die seit Generationen Käse macht.</p>
-        <p>Da stand ich morgens im Stall, den Geruch der Kühe in der Nase, und sah zu, wie der Bauer die frische Milch in einen riesigen Kupferkessel goss. Kein Knopfdruck, keine Maschine, nur seine Hände, ein Gespür und viel Geduld. Aus dieser Milch wurde vor meinen Augen echter Käse. In diesem Moment ist etwas in mir umgekippt.</p>
-        <p>Ich merkte: Erst wer selbst erlebt, wie viel Arbeit und Gefühl in einem einzigen Laib stecken, versteht wirklich, was guter Käse ist. Dieses Wissen wollte ich nicht für mich behalten. Ich kam mehrere Sommer wieder, lernte jeden Handgriff, und irgendwann war klar, dass ich das weitergeben muss.</p>
-        <p>Heute, über zehn Jahre und mehr als 1.000 Teilnehmer später, stehe ich in Stolpen am Kessel, mit Menschen wie Dir daneben. Und jedes Mal, wenn jemand seinen ersten eigenen Laib in den Händen hält, sehe ich denselben Moment, der mich damals gepackt hat.</p>
-      </div>
+    <div class="uu-split uu-split--top">
       <figure class="uu-story__photo">
         <img src="/images/petra-lutz-alp-laibe.jpg" alt="Petra und Lutz Gräfe mit frisch gereiften Käselaiben auf einer Schweizer Alp" loading="lazy" />
         <figcaption>Petra und Lutz auf der Alp — wo die Begeisterung fürs Käsehandwerk begann.</figcaption>
       </figure>
+      <div class="uu-story__body">
+        <span class="eyebrow">Wie alles begann</span>
+        <h2 class="uu-story__title">Ein Sommer auf der Alp — und in mir ist etwas umgekippt</h2>
+        <span class="rule rule--left"></span>
+        <div class="uu-story__text">
+          <p>Ich habe Agrarwissenschaften studiert und dachte, ich wüsste, wie Lebensmittel entstehen. Bis ich zum ersten Mal einen Sommer auf einer Schweizer Alp verbrachte, bei einer Bauernfamilie, die seit Generationen Käse macht.</p>
+          <p>Da stand ich morgens im Stall, den Geruch der Kühe in der Nase, und sah zu, wie der Bauer die frische Milch in einen riesigen Kupferkessel goss. Kein Knopfdruck, keine Maschine, nur seine Hände, ein Gespür und viel Geduld. Aus dieser Milch wurde vor meinen Augen echter Käse. In diesem Moment ist etwas in mir umgekippt.</p>
+          <p>Ich merkte: Erst wer selbst erlebt, wie viel Arbeit und Gefühl in einem einzigen Laib stecken, versteht wirklich, was guter Käse ist. Dieses Wissen wollte ich nicht für mich behalten. Ich kam mehrere Sommer wieder, lernte jeden Handgriff, und irgendwann war klar, dass ich das weitergeben muss.</p>
+          <p>Heute, über zehn Jahre und mehr als 1.000 Teilnehmer später, stehe ich in Stolpen am Kessel, mit Menschen wie Dir daneben. Und jedes Mal, wenn jemand seinen ersten eigenen Laib in den Händen hält, sehe ich denselben Moment, der mich damals gepackt hat.</p>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -439,10 +441,14 @@ import Icon from '../components/Icon.astro';
   @media (max-width: 640px) {
     .uu-story__cols { columns: 1; }
   }
-  .uu-story__photo { margin: clamp(28px, 4vw, 40px) 0 0; }
+  .uu-story__photo {
+    margin: 0;
+    display: grid;
+    justify-items: center;
+  }
   .uu-story__photo img {
     width: 100%;
-    max-width: 520px;
+    max-width: 460px;
     height: auto;
     display: block;
     border-radius: 12px;
@@ -451,11 +457,19 @@ import Icon from '../components/Icon.astro';
   }
   .uu-story__photo figcaption {
     margin-top: 10px;
-    max-width: 520px;
+    max-width: 460px;
     font-size: 14px;
     font-style: italic;
     color: var(--text-caption);
   }
+  .uu-story__text {
+    margin-top: 6px;
+    font-size: clamp(16px, 1.9vw, 17px);
+    line-height: 1.75;
+    color: var(--text-secondary);
+  }
+  .uu-story__text p { margin: 0 0 16px; }
+  .uu-story__text p:last-child { margin-bottom: 0; }
 
   /* ---- 4 · Mission ---- */
   .uu-mission {
